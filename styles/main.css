@@ -47,6 +47,14 @@ a {
     color: white;
 }
 
+#menu-icon {
+    display: none;
+    width: 45px;
+    height: 38.7px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 .center-containers {
     display: flex;
     justify-content: center;
@@ -63,26 +71,23 @@ a {
     cursor: pointer;
 }
 
-#circle1 {
+.circles {
     position: absolute;
     width: 12.4px;
     height: 12.4px;
+}
+
+#circle1 {
     top: 90%;
     left: 48%;
 }
 
 #circle2 {
-    position: absolute;
-    width: 12.4px;
-    height: 12.4px;
     top: 90%;
     left: 50%;
 }
 
 #circle3 {
-    position: absolute;
-    width: 12.4px;
-    height: 12.4px;
     top: 90%;
     left: 52%;
 }
@@ -116,13 +121,12 @@ a {
 }
 
 .category-titles {
-    margin: 100px 0px 10px 200px;
+    margin: 100px 0px 10px 19%;
 }
 
 .category {
     display: flex;
-    justify-content: start;
-    margin-left: 200px;
+    justify-content: center;
     width: 100%;
 }
 
@@ -135,7 +139,6 @@ a {
 .last-cover-art-container {
     width: 144px;
     height: 216px;
-    cursor: pointer;
 }
 
 .cover-art {
@@ -185,4 +188,50 @@ footer {
     display: block;
     margin-left: 15%;
     width: 100%;
+}
+
+@media only screen and (max-width: 800px){
+    .category div:nth-last-child(-n + 3){
+        display: none;
+    }
+    
+    .category {
+        margin-left: 5%;
+    }
+    
+    .less {
+        display: none;
+    }
+    
+    .greater {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .nav-right-items {
+        display: none;
+    }
+
+    #menu-icon {
+        display: inherit;
+    }
+    
+    #banner {
+        width: 480px;
+        height: 180px;
+    }
+    
+   .circles {
+        width: 6.3px; 
+        height: 6.3px; 
+   } 
+   
+   .category-titles {
+        margin: 100px 0px 10px 50px;
+   }
+   
+    #credits {
+        margin-left: 2%;
+    }
 }
