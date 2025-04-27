@@ -1,5 +1,8 @@
 # Relatório
 
+Felipe Ferreira Colona - NUSP 15636525 </br>
+Daniel Mistieri Foloni - NUSP 15446899 </br>
+
 ### Requisitos
 Além dos requisitos pré-estabelecidos, o projeto inclui os seguintes novos requisitos:
 - Os registros de produtos incluem os gêneros de jogos aos quais eles pertencem.
@@ -21,6 +24,13 @@ Na página principal do administrador, ele poderá, através da navbar, acessar 
 
 
 ### Comentários Sobre o Código
+Estrutura de Pastas:
+- views: arquivos HTML
+- styles: arquivos CSS
+- assets: arquivos de imagem 
+- assets/figma-mockups: imagens dos mockups (desktop e mobile) desenvolvidos no Figma
+- assets/game-imgs: imagens de capa e de banner dos jogos cadastrados (créditos dados nas páginas em que aparecem)
+- assets/icons: ícones do FontAwesome em formato SVG
 
 ### Plano de Teste
 
