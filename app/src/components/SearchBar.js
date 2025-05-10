@@ -5,7 +5,7 @@ export default function SearchBar(){
         <div id={styles['search-container']}>
           <img
             id={styles['search-icon']}
-            src="icons/magnifying-glass-solid.svg"
+            src="/icons/magnifying-glass-solid.svg"
             alt="Busca"
           />
           <input id={styles['search-bar']} type="text"/>

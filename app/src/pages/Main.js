@@ -1,4 +1,4 @@
-import styles from "../styles/main.module.css";
+import styles from "../styles/Main.module.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
@@ -11,25 +11,25 @@ export function Main() {
         <div id={styles["banner-container"]}>
           <img
             id={styles["banner"]}
-            src="game-imgs/hollow-knight-banner.png"
+            src="/game-imgs/hollow-knight-banner.png"
             alt=""
           />
           <img
             id={styles["circle1"]}
             className={styles["circles"]}
-            src="icons/circle.svg"
+            src="/icons/circle.svg"
             alt=""
           />
           <img
             id={styles["circle2"]}
             className={styles["circles"]}
-            src="icons/selected-circle.svg"
+            src="/icons/selected-circle.svg"
             alt=""
           />
           <img
             id={styles["circle3"]}
             className={styles["circles"]}
-            src="icons/circle.svg"
+            src="/icons/circle.svg"
             alt=""
           />
         </div>
@@ -41,13 +41,13 @@ export function Main() {
       <div className={styles["category"]}>
         <img
           className={styles["less"]}
-          src="icons/less-than-solid.svg"
+          src="/icons/less-than-solid.svg"
           alt="Voltar"
         />
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/celeste.jpg"
+            src="/game-imgs/celeste.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Celeste</h4>
@@ -55,7 +55,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/dead-cells.png"
+            src="/game-imgs/dead-cells.png"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Dead Cells</h4>
@@ -63,7 +63,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/cuphead.png"
+            src="/game-imgs/cuphead.png"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Cuphead</h4>
@@ -71,7 +71,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/unravel.jpg"
+            src="/game-imgs/unravel.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Unravel</h4>
@@ -79,14 +79,14 @@ export function Main() {
         <div className="last-cover-art-container">
           <img
             className={styles["cover-art"]}
-            src="game-imgs/ori-and-the-blind-forest.jpg"
+            src="/game-imgs/ori-and-the-blind-forest.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Ori and the Blind Forest</h4>
         </div>
         <img
           className={styles["greater"]}
-          src="icons/greater-than-solid.svg"
+          src="/icons/greater-than-solid.svg"
           alt="Voltar"
         />
       </div>
@@ -94,13 +94,13 @@ export function Main() {
       <div className={styles["category"]}>
         <img
           className={styles["less"]}
-          src="icons/less-than-solid.svg"
+          src="/icons/less-than-solid.svg"
           alt="Voltar"
         />
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/hades.jpg"
+            src="/game-imgs/hades.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Hades</h4>
@@ -108,7 +108,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/children-of-morta.jpg"
+            src="/game-imgs/children-of-morta.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Children of Morta</h4>
@@ -116,7 +116,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/dead-cells.png"
+            src="/game-imgs/dead-cells.png"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Dead Cells</h4>
@@ -124,7 +124,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/neon-abyss.jpg"
+            src="/game-imgs/neon-abyss.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Neon Abyss</h4>
@@ -132,14 +132,14 @@ export function Main() {
         <div className="last-cover-art-container">
           <img
             className={styles["cover-art"]}
-            src="game-imgs/the-binding-of-isaac.png"
+            src="/game-imgs/the-binding-of-isaac.png"
             alt=""
           />
           <h4 className={styles["game-titles"]}>The Binding of Isaac</h4>
         </div>
         <img
           className={styles["greater"]}
-          src="icons/greater-than-solid.svg"
+          src="/icons/greater-than-solid.svg"
           alt="Voltar"
         />
       </div>
@@ -147,13 +147,13 @@ export function Main() {
       <div className={styles["category"]}>
         <img
           className={styles["less"]}
-          src="icons/less-than-solid.svg"
+          src="/icons/less-than-solid.svg"
           alt="Voltar"
         />
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/skyrim.jpg"
+            src="/game-imgs/skyrim.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Skyrim</h4>
@@ -161,7 +161,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/dark-souls3.jpg"
+            src="/game-imgs/dark-souls3.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Dark Souls 3</h4>
@@ -169,7 +169,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/fallout-nv.jpg"
+            src="/game-imgs/fallout-nv.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Fallout New Vegas</h4>
@@ -177,7 +177,7 @@ export function Main() {
         <div className={styles["container-cover-arts"]}>
           <img
             className={styles["cover-art"]}
-            src="game-imgs/fallout3.jpg"
+            src="/game-imgs/fallout3.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Fallout 3</h4>
@@ -185,14 +185,14 @@ export function Main() {
         <div className="last-cover-art-container">
           <img
             className={styles["cover-art"]}
-            src="game-imgs/fallout4.jpg"
+            src="/game-imgs/fallout4.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>Fallout4</h4>
         </div>
         <img
           className={styles["greater"]}
-          src="icons/greater-than-solid.svg"
+          src="/icons/greater-than-solid.svg"
           alt="Voltar"
         />
       </div>
