@@ -1,0 +1,28 @@
+.footer {
+    background-color: #01257D;
+    color: white;
+    width: 100%;
+    height: 100%;
+    margin-top: 350px;
+}
+
+#footer-title-container {
+    display: flex;
+    justify-content: center;
+}
+
+#footer-title {
+    font-family: Lilita One;
+}
+
+#credits {
+    display: block;
+    margin-left: 15%;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    #credits {
+        margin-left: 2%;
+    }
+}

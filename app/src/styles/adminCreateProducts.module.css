@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lilita+One&display=swap');
 
-body {
-  margin: 0%;
-  font-family: Inter;
-  color: #1a1a1a;
-  max-width: 100%;
-  overflow-x: hidden;
-  height: 100%;
-}
-
 #navbar {
   display: flex;
   background-color: #01257d;

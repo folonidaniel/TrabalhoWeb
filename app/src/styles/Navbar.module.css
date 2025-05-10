@@ -1,0 +1,47 @@
+#navbar {
+    display: flex;
+    background-color: #01257D;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.nav-right-items {
+    padding: 0px 10px 0px 10px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#logo-icon {
+    width: 108px;
+    height: 65px;
+    color: white;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+#cart-icon {
+    width: 54px;
+    height: 47px;
+    color: white;
+}
+
+#menu-icon {
+    display: none;
+    width: 45px;
+    height: 38.7px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .nav-right-items {
+        display: none;
+    }
+
+    #menu-icon {
+        display: inherit;
+    }
+}
