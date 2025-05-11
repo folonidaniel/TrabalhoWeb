@@ -43,14 +43,14 @@ export function ProductDetails() {
         if(cart == null) cart = []
         
         let updatedProductQuantity = false
-        cart = cart.map( (product) => {
-            if(product.id == params.id){
+        cart = cart.map( (item) => {
+            if(item.id == params.id){
                 updatedProductQuantity = true
-                let newProduct = {...product}
-                newProduct.quantity += product.quantity
+                let newProduct = {...item}
+                newProduct.quantity += quantity
                 return newProduct
             }
-            return product
+            return item
         })
         if(!updatedProductQuantity){
             let newProduct = {...product}

@@ -54,7 +54,7 @@ export function Cart() {
                                 </div>
                             </div>
 
-                            <div className={styles.itemPrice}> {product.price * product.quantity} R$ </div>
+                            <div className={styles.itemPrice}> {(product.price * product.quantity).toFixed(2)} R$ </div>
                         </div>
                     ))}
                 </main>
@@ -62,11 +62,8 @@ export function Cart() {
                 <hr className={styles.divisionLine}/>
                 <div className={styles.totalContainer}>
                     <span className={styles.total}>
-                        Total: {state.reduce( (acc, product) => acc += product.quantity * product.price, 0)                  }
+                        Total: {state.reduce( (acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
                     </span>
-                </div>
-
-                <div className={styles.footer}>
                     <button className={styles.continueButton}>
                         Continuar
                     </button>

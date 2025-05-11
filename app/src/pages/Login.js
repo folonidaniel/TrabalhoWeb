@@ -1,6 +1,16 @@
+import { useNavigate } from "react-router"
 import styles from '../styles/Login.module.css'
 
+//TODO: passar pra esse component (usando props)
+// a página para qual ele deve retornar após 'efetuar' o login
 export function Login() {
+  const navigation = useNavigate()
+
+  function handleLogin(){
+    sessionStorage.setItem("isLoggedIn", true)
+    navigation("/")
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -18,7 +28,7 @@ export function Login() {
             <input className={styles.input} type="password" placeholder="Senha:" />
           </div>
           <div>
-            <button id={styles['Login_button']} type="submit">
+            <button id={styles['Login_button']} type="submit" onClick={handleLogin}>
               Entrar
             </button>
           </div>
