@@ -1,0 +1,14 @@
+{
+    "id": 13,
+    "title": "Fallout 3",
+    "description": "Explore um mundo devastado pela guerra nuclear, enfrente mutantes e tome decisões difíceis que moldam o destino do Wasteland neste RPG aclamado.",
+    "images": [
+        "/game-imgs/fallout3.jpg"
+    ],
+    "categories": [
+        "RPG",
+        "Ação",
+        "Mundo Aberto"
+    ],
+    "price": 60.00
+}

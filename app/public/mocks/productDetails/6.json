@@ -1,0 +1,13 @@
+{
+    "id": 6,
+    "title": "Hades",
+    "description": "Escape do Submundo como Zagreus, o príncipe do submundo, neste roguelike aclamado da Supergiant Games. Combine armas, poderes dos deuses e reflexos rápidos para desafiar a morte.",
+    "images": [
+        "/game-imgs/hades.jpg"
+    ],
+    "categories": [
+        "Roguelike",
+        "Ação"
+    ],
+    "price": 100.00
+}

@@ -1,0 +1,13 @@
+{
+    "id": 5,
+    "title": "Ori and the Blind Forest",
+    "description": "Explore uma floresta encantada e ajude Ori a salvar seu lar neste jogo de plataforma com narrativa emocional, visuais deslumbrantes e trilha sonora memorável.",
+    "images": [
+        "/game-imgs/ori-and-the-blind-forest.jpg"
+    ],
+    "categories": [
+        "Plataforma",
+        "Aventura"
+    ],
+    "price": 90.00
+}

@@ -1,0 +1,13 @@
+{
+    "id": 3,
+    "title": "Cuphead",
+    "description": "Enfrente chefes intensos em lutas desenhadas à mão no estilo dos desenhos animados dos anos 1930. Cuphead é um jogo de ação e plataforma com foco em batalhas desafiadoras e estilo visual único.",
+    "images": [
+        "/game-imgs/cuphead.png"
+    ],
+    "categories": [
+        "Plataforma",
+        "Ação"
+    ],
+    "price": 80.00
+}

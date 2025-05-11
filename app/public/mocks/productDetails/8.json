@@ -1,0 +1,14 @@
+{
+    "id": 8,
+    "title": "Neon Abyss",
+    "description": "Mergulhe em masmorras geradas aleatoriamente em um roguelike frenético onde você empunha armas malucas e coleta itens que se empilham infinitamente para alterar sua jogabilidade.",
+    "images": [
+        "/game-imgs/neon-abyss.jpg"
+    ],
+    "categories": [
+        "Roguelike",
+        "Plataforma",
+        "Ação"
+    ],
+    "price": 75.00
+}

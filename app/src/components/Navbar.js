@@ -13,12 +13,9 @@ export default function Navbar() {
         <a href="/my-account" className={styles["nav-right-items"]}>
           Minha Conta
         </a>
-        <img
-          id={styles["cart-icon"]}
-          className={styles["nav-right-items"]}
-          src="/icons/cart-shopping-solid.svg"
-          alt="Carrinho"
-        />
+        <a href="/cart">
+          <img id={styles["cart-icon"]} className={styles["nav-right-items"]} src="/icons/cart-shopping-solid.svg" alt="Carrinho"/>
+        </a>
         <img id={styles["menu-icon"]} src="/icons/bars-solid.svg" alt="Menu" />
       </nav>
     </>

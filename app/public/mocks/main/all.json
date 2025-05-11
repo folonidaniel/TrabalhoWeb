@@ -1,0 +1,193 @@
+[
+    {
+        "id": 1,
+        "title": "Celeste",
+        "description": "Ajude Madeline a enfrentar seus demônios internos em sua jornada até o topo da Montanha Celeste, nesse jogo de plataforma super afiado dos criadores de TowerFall. Desbrave centenas de desafios meticulosos, descubra segredos complicados e desvende o mistério da montanha.",
+        "images": [
+            "/game-imgs/celeste.jpg"
+        ],
+        "categories": [
+            "Plataforma",
+            "Aventura"
+        ],
+        "price": 60.00
+    },
+    {
+        "id": 2,
+        "title": "Dead Cells",
+        "description": "Dead Cells é um 'roguelike' de ação em plataforma estilo Metroidvania. Você vai explorar um castelo extenso e em constante mutação... Sem checkpoints. Mate, morra, aprenda, repita.",
+        "images": [
+            "/game-imgs/dead-cells.png"
+        ],
+        "categories": [
+            "Roguelike",
+            "Plataforma",
+            "Ação"
+        ],
+        "price": 47.49
+    },
+    {
+        "id": 3,
+        "title": "Cuphead",
+        "description": "Enfrente chefes intensos em lutas desenhadas à mão no estilo dos desenhos animados dos anos 1930. Cuphead é um jogo de ação e plataforma com foco em batalhas desafiadoras e estilo visual único.",
+        "images": [
+            "/game-imgs/cuphead.png"
+        ],
+        "categories": [
+            "Plataforma",
+            "Ação"
+        ],
+        "price": 80.00
+    },
+    {
+        "id": 4,
+        "title": "Unravel",
+        "description": "Acompanhe Yarny, um boneco feito de um único fio de lã, em uma jornada tocante por memórias perdidas. Resolva quebra-cabeças e supere obstáculos em um mundo inspirado pela natureza escandinava.",
+        "images": [
+            "/game-imgs/unravel.jpg"
+        ],
+        "categories": [
+            "Plataforma",
+            "Quebra-cabeça"
+        ],
+        "price": 70.00
+    },
+    {
+        "id": 5,
+        "title": "Ori and the Blind Forest",
+        "description": "Explore uma floresta encantada e ajude Ori a salvar seu lar neste jogo de plataforma com narrativa emocional, visuais deslumbrantes e trilha sonora memorável.",
+        "images": [
+            "/game-imgs/ori-and-the-blind-forest.jpg"
+        ],
+        "categories": [
+            "Plataforma",
+            "Aventura"
+        ],
+        "price": 90.00
+    },
+    {
+        "id": 6,
+        "title": "Hades",
+        "description": "Escape do Submundo como Zagreus, o príncipe do submundo, neste roguelike aclamado da Supergiant Games. Combine armas, poderes dos deuses e reflexos rápidos para desafiar a morte.",
+        "images": [
+            "/game-imgs/hades.jpg"
+        ],
+        "categories": [
+            "Roguelike",
+            "Ação"
+        ],
+        "price": 100.00
+    },
+    {
+        "id": 7,
+        "title": "Children of Morta",
+        "description": "Lute com os membros da família Bergson em um RPG de ação com narrativa emocional e mecânicas de roguelike. Defenda o mundo da corrupção crescente.",
+        "images": [
+            "/game-imgs/children-of-morta.jpg"
+        ],
+        "categories": [
+            "Roguelike",
+            "RPG",
+            "Ação"
+        ],
+        "price": 85.00
+    },
+    {
+        "id": 8,
+        "title": "Neon Abyss",
+        "description": "Mergulhe em masmorras geradas aleatoriamente em um roguelike frenético onde você empunha armas malucas e coleta itens que se empilham infinitamente para alterar sua jogabilidade.",
+        "images": [
+            "/game-imgs/neon-abyss.jpg"
+        ],
+        "categories": [
+            "Roguelike",
+            "Plataforma",
+            "Ação"
+        ],
+        "price": 75.00
+    },
+    {
+        "id": 9,
+        "title": "The Binding of Isaac",
+        "description": "Ajude Isaac a escapar de sua mãe em um roguelike perturbador e cheio de ação. Explore calabouços sombrios, enfrente monstros grotescos e colete centenas de itens diferentes.",
+        "images": [
+            "/game-imgs/the-binding-of-isaac.jpg"
+        ],
+        "categories": [
+            "Roguelike",
+            "Ação",
+            "Terror"
+        ],
+        "price": 65.00
+    },
+    {
+        "id": 10,
+        "title": "Skyrim",
+        "description": "Viva como quiser no vasto mundo aberto de Skyrim. Seja um guerreiro, mago ou ladrão enquanto enfrenta dragões e descobre seu destino como o Dovahkiin.",
+        "images": [
+            "/game-imgs/skyrim.jpg"
+        ],
+        "categories": [
+            "RPG",
+            "Mundo Aberto",
+            "Aventura"
+        ],
+        "price": 120.00
+    },
+    {
+        "id": 11,
+        "title": "Dark Souls 3",
+        "description": "Encare um mundo sombrio e brutal em Dark Souls 3. Explore ruínas desoladas, enfrente inimigos impiedosos e descubra segredos ocultos neste RPG de ação desafiador.",
+        "images": [
+            "/game-imgs/dark-souls-3.jpg"
+        ],
+        "categories": [
+            "RPG",
+            "Ação",
+            "Desafiador"
+        ],
+        "price": 110.00
+    },
+    {
+        "id": 12,
+        "title": "Fallout: New Vegas",
+        "description": "Viaje pelos desertos pós-apocalípticos de Mojave em uma aventura cheia de escolhas, facções e combates intensos. Viva como um mensageiro que pode mudar o destino de New Vegas.",
+        "images": [
+            "/game-imgs/fallout-nv.jpg"
+        ],
+        "categories": [
+            "RPG",
+            "Ação",
+            "Mundo Aberto"
+        ],
+        "price": 60.00
+    },
+    {
+        "id": 13,
+        "title": "Fallout 3",
+        "description": "Explore um mundo devastado pela guerra nuclear, enfrente mutantes e tome decisões difíceis que moldam o destino do Wasteland neste RPG aclamado.",
+        "images": [
+            "/game-imgs/fallout3.jpg"
+        ],
+        "categories": [
+            "RPG",
+            "Ação",
+            "Mundo Aberto"
+        ],
+        "price": 60.00
+    },
+    {
+        "id": 14,
+        "title": "Fallout 4",
+        "description": "Sobreviva em um mundo pós-apocalíptico, construa assentamentos e lute por sua família em uma jornada épica pelo deserto de Boston.",
+        "images": [
+            "/game-imgs/fallout4.jpg"
+        ],
+        "categories": [
+            "RPG",
+            "Ação",
+            "Mundo Aberto"
+        ],
+        "price": 100.00
+    }
+]

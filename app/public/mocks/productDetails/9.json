@@ -1,0 +1,14 @@
+{
+    "id": 9,
+    "title": "The Binding of Isaac",
+    "description": "Ajude Isaac a escapar de sua mãe em um roguelike perturbador e cheio de ação. Explore calabouços sombrios, enfrente monstros grotescos e colete centenas de itens diferentes.",
+    "images": [
+        "/game-imgs/the-binding-of-isaac.jpg"
+    ],
+    "categories": [
+        "Roguelike",
+        "Ação",
+        "Terror"
+    ],
+    "price": 65.00
+}
