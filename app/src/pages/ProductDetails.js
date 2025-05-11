@@ -46,10 +46,17 @@ export function ProductDetails() {
         cart = cart.map( (product) => {
             if(product.id == params.id){
                 updatedProductQuantity = true
-                return { id: product.id, quantity: product.quantity + quantity }
+                let newProduct = {...product}
+                newProduct.quantity += product.quantity
+                return newProduct
             }
+            return product
         })
-        if(!updatedProductQuantity) cart.push({ id: product.id, quantity: quantity })
+        if(!updatedProductQuantity){
+            let newProduct = {...product}
+            newProduct.quantity = quantity
+            cart.push(newProduct)
+        }
         sessionStorage.setItem("cart", JSON.stringify(cart))
         navigate("/cart")
     }
@@ -68,10 +75,20 @@ export function ProductDetails() {
         cart = cart.map( (product) => {
             if(product.id == params.id){
                 updatedProductQuantity = true
-                return { id: product.id, quantity: product.quantity + quantity }
+                product.quantity += quantity
+                return product 
             }
         })
-        if(!updatedProductQuantity) cart.push({ id: product.id, quantity: quantity })
+        if(!updatedProductQuantity){
+            cart.push({ 
+            id: product.id, 
+            quantity: product.quantity + quantity,
+            title: product.title,
+            images: product.images,
+            categories: product.categories,
+            price: product.price
+            })
+        }
         sessionStorage.setItem("cart", JSON.stringify(cart))
         navigate("/checkout")
     }
