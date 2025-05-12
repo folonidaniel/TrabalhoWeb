@@ -132,7 +132,7 @@ export function Main() {
         <div className="last-cover-art-container">
           <img
             className={styles["cover-art"]}
-            src="/game-imgs/the-binding-of-isaac.png"
+            src="/game-imgs/the-binding-of-isaac.jpg"
             alt=""
           />
           <h4 className={styles["game-titles"]}>The Binding of Isaac</h4>

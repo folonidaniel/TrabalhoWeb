@@ -1,6 +1,8 @@
 import styles from '../styles/Navbar.module.css'
 
 export default function Navbar() {
+  const loggedUser = sessionStorage.getItem("loggedUser")
+  
   return (
     <>
       <nav id={styles["navbar"]}>
@@ -10,13 +12,23 @@ export default function Navbar() {
         <a href="/about-us" className={styles["nav-right-items"]}>
           Sobre Nós
         </a>
-        <a href="/my-account" className={styles["nav-right-items"]}>
-          Minha Conta
-        </a>
-        <a href="/cart">
-          <img id={styles["cart-icon"]} className={styles["nav-right-items"]} src="/icons/cart-shopping-solid.svg" alt="Carrinho"/>
-        </a>
-        <img id={styles["menu-icon"]} src="/icons/bars-solid.svg" alt="Menu" />
+
+        {loggedUser === null ? (
+          <>
+            <a href="/login" className={styles["nav-right-items"]}>Login</a>
+            <a href="/register" className={styles["nav-right-items"]}>Registro</a>
+            <img id={styles["menu-icon"]} src="/icons/bars-solid.svg" alt="Menu" />
+          </>
+        ) : (
+          <>
+            <a href="/my-account" className={styles["nav-right-items"]}>
+              Minha Conta
+            </a>
+            <a href="/cart">
+              <img id={styles["cart-icon"]} className={styles["nav-right-items"]} src="/icons/cart-shopping-solid.svg" alt="Carrinho"/>
+            </a>
+          </>
+        )}
       </nav>
     </>
   );

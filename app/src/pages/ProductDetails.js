@@ -33,11 +33,7 @@ export function ProductDetails() {
     else if(!isLoaded) return <div>Loading...</div>
         
     function handleCart(){
-        const isLoggedIn = sessionStorage.getItem("isLoggedIn")
-        if(isLoggedIn == null || !isLoggedIn){
-            navigate("/login")
-            return;
-        }
+        const loggedUser = sessionStorage.getItem("loggedUser")
         
         let cart = JSON.parse(sessionStorage.getItem("cart"))
         if(cart == null) cart = []
@@ -58,12 +54,17 @@ export function ProductDetails() {
             cart.push(newProduct)
         }
         sessionStorage.setItem("cart", JSON.stringify(cart))
-        navigate("/cart")
+
+        if(loggedUser == null){
+            navigate("/login", { state: "/cart"})
+        } else {
+            navigate("/cart")
+        }
     }
     
     function handleBuyNow(){
-        const isLoggedIn = sessionStorage.getItem("isLoggedIn")
-        if(isLoggedIn == null || !isLoggedIn){
+        const loggedUser = sessionStorage.getItem("loggedUser")
+        if(loggedUser == null){
             navigate("/login")
             return;
         }
