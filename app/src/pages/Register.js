@@ -64,9 +64,11 @@ export function Register() {
       <form onSubmit={handleRegister} action="/create/user" method="POST" className={styles.main}>
         <section id={styles['logo_class']}>
           <div className="logo">
-            <img className={styles.img} src="icons/gamepad-solid.svg" alt="imagem poggers" />
+            <a href="/">
+              <img className={styles.img} src="icons/gamepad-solid.svg" alt="imagem poggers" />
+            </a>
           </div>
-          <h1 className={styles.h1}>Registro</h1>
+          <h1 className={styles.h1}>Cadastro</h1>
         </section>
         <section id={styles['placeholder_class']}>
           {error === null ? (

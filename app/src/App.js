@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Register } from './pages/Register'
-import { Login } from './pages/Login'
-import { ProductDetails } from './pages/ProductDetails'
-import { Cart } from './pages/Cart'
-import { Main } from './pages/Main'
+import { Register } from "./pages/Register"
+import { Login } from "./pages/Login"
+import { ProductDetails } from "./pages/ProductDetails"
+import { Cart } from "./pages/Cart"
+import { AboutUs } from "./pages/AboutUs"
+import { Main } from "./pages/Main"
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/product/:id" element={<ProductDetails/>}/>
-        <Route path="/cart" element={<Cart></Cart>}/>
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/about-us" element={<AboutUs/>}/>
       </Routes>
     </BrowserRouter>
   );

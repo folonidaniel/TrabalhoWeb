@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p {
+    max-width: 50%;
+    font-family: Inter;
+    text-align: justify;
+    color: #1A1A1A;
+}
+
+.logoIcon {
+    margin-top: 15px;
+    width: 108px;
+    height: 65px;
+}

@@ -15,8 +15,8 @@ export default function Navbar() {
 
         {loggedUser === null ? (
           <>
-            <a href="/login" className={styles["nav-right-items"]}>Login</a>
-            <a href="/register" className={styles["nav-right-items"]}>Registro</a>
+            <a href="/login" className={styles["nav-right-items"]}>Entre</a>
+            <a href="/register" className={styles["nav-right-items"]}>Cadastre-se</a>
             <img id={styles["menu-icon"]} src="/icons/bars-solid.svg" alt="Menu" />
           </>
         ) : (

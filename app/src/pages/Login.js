@@ -52,11 +52,13 @@ export function Login() {
       <form onSubmit={handleLogin} className={styles.main}>
         <section id={styles["logo_class"]}>
           <div className={styles.logo}>
-            <img
-              className={styles.img}
-              src="icons/gamepad-solid.svg"
-              alt="imagem poggers"
-            />
+            <a href="/">
+              <img
+                className={styles.img}
+                src="icons/gamepad-solid.svg"
+                alt="imagem poggers"
+              />
+            </a>
           </div>
           <h1 className={styles.h1}>Login</h1>
         </section>
