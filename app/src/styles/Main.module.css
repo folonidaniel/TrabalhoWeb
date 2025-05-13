@@ -33,25 +33,16 @@ a {
     cursor: pointer;
 }
 
+.circlesContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .circles {
     position: absolute;
     width: 12.4px;
     height: 12.4px;
-}
-
-#circle1 {
     top: 90%;
-    left: 48%;
-}
-
-#circle2 {
-    top: 90%;
-    left: 50%;
-}
-
-#circle3 {
-    top: 90%;
-    left: 52%;
 }
 
 .category-titles {

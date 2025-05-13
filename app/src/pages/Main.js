@@ -2,36 +2,56 @@ import styles from "../styles/Main.module.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
+import { useState } from "react"
 
 export function Main() {
+  const [bannerIndex, setBannerIndex] = useState(0)
+  const bannerImgs = [
+      {
+        id: 15,
+        path: "/game-imgs/hollow-knight-banner.png"  
+      },
+      {
+        id: 1,
+        path: "/game-imgs/celeste-banner.png"  
+      },
+      {
+        id: 5,
+        path: "/game-imgs/ori-and-the-blind-forest-banner.jpg"  
+      }
+  ]
+  setInterval( () => {
+    let newBannerIndex
+    if(bannerIndex+1 === bannerImgs.length) newBannerIndex = 0
+    else newBannerIndex = bannerIndex+1
+    setBannerIndex(newBannerIndex)
+  }, 20000)
+
   return (
     <>
       <Navbar></Navbar>
       <div className={styles["center-containers"]}>
         <div id={styles["banner-container"]}>
-          <img
-            id={styles["banner"]}
-            src="/game-imgs/hollow-knight-banner.png"
-            alt=""
+          <a href={"/product/" + bannerImgs[bannerIndex].id}>
+            <img
+              id={styles["banner"]}
+              src={bannerImgs[bannerIndex].path}
+              alt=""
           />
-          <img
-            id={styles["circle1"]}
-            className={styles["circles"]}
-            src="/icons/circle.svg"
-            alt=""
-          />
-          <img
-            id={styles["circle2"]}
-            className={styles["circles"]}
-            src="/icons/selected-circle.svg"
-            alt=""
-          />
-          <img
-            id={styles["circle3"]}
-            className={styles["circles"]}
-            src="/icons/circle.svg"
-            alt=""
-          />
+          </a>
+          <div className={styles.circlesContainer}>
+            {bannerImgs.map( (item, i) => (
+              <div className={styles.circlesContainer}>
+                <img
+                  key={i}
+                  style={{left: bannerImgs.length <= 3 ? 45 + i*5 + "%"  : 45 - (bannerImgs.length) + i*5 + "%" }}
+                  className={styles["circles"]}
+                  src={bannerIndex === i ? "/icons/selected-circle.svg" : "/icons/circle.svg"}
+                  alt=""
+              />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles["center-containers"]}>
