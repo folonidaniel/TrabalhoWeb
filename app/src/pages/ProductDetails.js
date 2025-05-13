@@ -28,66 +28,66 @@ export function ProductDetails() {
 
     const [quantity, setQuantity] = useState(1)
     const navigate = useNavigate()
-    
-    if(error) return <div>Product Not Found</div>
-    else if(!isLoaded) return <div>Loading...</div>
-        
-    function handleCart(){
+
+    if (error) return <div>Product Not Found</div>
+    else if (!isLoaded) return <div>Loading...</div>
+
+    function handleCart() {
         const loggedUser = sessionStorage.getItem("loggedUser")
-        
+
         let cart = JSON.parse(sessionStorage.getItem("cart"))
-        if(cart == null) cart = []
-        
+        if (cart == null) cart = []
+
         let updatedProductQuantity = false
-        cart = cart.map( (item) => {
-            if(item.id == params.id){
+        cart = cart.map((item) => {
+            if (item.id == params.id) {
                 updatedProductQuantity = true
-                let newProduct = {...item}
+                let newProduct = { ...item }
                 newProduct.quantity += quantity
                 return newProduct
             }
             return item
         })
-        if(!updatedProductQuantity){
-            let newProduct = {...product}
+        if (!updatedProductQuantity) {
+            let newProduct = { ...product }
             newProduct.quantity = quantity
             cart.push(newProduct)
         }
         sessionStorage.setItem("cart", JSON.stringify(cart))
 
-        if(loggedUser == null){
-            navigate("/login", { state: "/cart"})
+        if (loggedUser == null) {
+            navigate("/login", { state: "/cart" })
         } else {
             navigate("/cart")
         }
     }
-    
-    function handleBuyNow(){
+
+    function handleBuyNow() {
         const loggedUser = sessionStorage.getItem("loggedUser")
-        if(loggedUser == null){
+        if (loggedUser == null) {
             navigate("/login")
             return;
         }
-        
+
         let cart = JSON.parse(sessionStorage.getItem("cart"))
-        if(cart == null) cart = []
-        
+        if (cart == null) cart = []
+
         let updatedProductQuantity = false
-        cart = cart.map( (product) => {
-            if(product.id == params.id){
+        cart = cart.map((product) => {
+            if (product.id == params.id) {
                 updatedProductQuantity = true
                 product.quantity += quantity
-                return product 
+                return product
             }
         })
-        if(!updatedProductQuantity){
-            cart.push({ 
-            id: product.id, 
-            quantity: product.quantity + quantity,
-            title: product.title,
-            images: product.images,
-            categories: product.categories,
-            price: product.price
+        if (!updatedProductQuantity) {
+            cart.push({
+                id: product.id,
+                quantity: product.quantity + quantity,
+                title: product.title,
+                images: product.images,
+                categories: product.categories,
+                price: product.price
             })
         }
         sessionStorage.setItem("cart", JSON.stringify(cart))
@@ -109,7 +109,7 @@ export function ProductDetails() {
                             <img className={styles.thumbnail}></img>
                         </div>
                         <div className={styles.categories}>
-                            {product.categories.map( (category) => (
+                            {product.categories.map((category) => (
                                 <div key={category} className={styles.category}>{category}</div>
                             ))}
                         </div>
@@ -127,15 +127,23 @@ export function ProductDetails() {
                                     onClick={() => quantity > 1 ? setQuantity(quantity - 1) : 0}
                                 >-</button>
                                 <span className={styles.quantity}>Quantidade: {quantity}</span>
-                                <button
-                                    className={styles.quantityControl}
-                                    onClick={() => setQuantity(quantity + 1)}
-                                >+</button>
+                                {quantity != product.quantityInStock ? (
+                                    <button
+                                        className={styles.quantityControl}
+                                        onClick={() => setQuantity(quantity + 1)} >
+                                        +
+                                    </button>
+                                ) : (
+                                    <button
+                                        style={{ width: "35px", height: "35px", background: "none", border: "none" }}>
+                                    </button>
+                                )}
                             </div>
                             <div className={styles.buttonGroup}>
                                 <button className={styles.buyNowBtn} onClick={handleBuyNow}>Comprar Agora</button>
                                 <button className={styles.addToCartBtn} onClick={handleCart}> Adicionar ao Carrinho </button>
                             </div>
+                            <span style={{ marginTop: "10px", color: "rgba(255, 255, 255, 0.6)" }}>Quantidade em estoque: {product.quantityInStock}</span>
                         </div>
                     </div>
                 </main>

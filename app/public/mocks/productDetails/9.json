@@ -10,5 +10,6 @@
         "Ação",
         "Terror"
     ],
-    "price": 65.00
+    "price": 65.00,
+    "quantityInStock": 4
 }

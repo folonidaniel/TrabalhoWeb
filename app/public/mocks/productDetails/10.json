@@ -10,5 +10,6 @@
         "Mundo Aberto",
         "Aventura"
     ],
-    "price": 120.00
+    "price": 120.00,
+    "quantityInStock": 13
 }

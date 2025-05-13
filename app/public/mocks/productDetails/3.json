@@ -9,5 +9,6 @@
         "Plataforma",
         "Ação"
     ],
-    "price": 80.00
+    "price": 80.00,
+    "quantityInStock": 12
 }

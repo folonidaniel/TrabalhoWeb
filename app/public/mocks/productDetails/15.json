@@ -10,5 +10,6 @@
         "Ação",
         "Aventura"
     ],
-    "price": 60.00
+    "price": 60.00,
+    "quantityInStock": 5
 }

@@ -10,5 +10,6 @@
         "RPG",
         "Ação"
     ],
-    "price": 85.00
+    "price": 85.00,
+    "quantityInStock": 11
 }

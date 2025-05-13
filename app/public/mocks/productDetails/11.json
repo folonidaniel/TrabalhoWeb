@@ -10,5 +10,6 @@
         "Ação",
         "Desafiador"
     ],
-    "price": 110.00
+    "price": 110.00,
+    "quantityInStock": 14
 }

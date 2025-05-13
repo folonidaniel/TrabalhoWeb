@@ -103,7 +103,9 @@
 
 .productDescription {
   line-height: 1.6;
-  margin-bottom: 20px;
+  width: 85%;
+  margin-bottom: 50px;
+  text-align: justify;
 }
 
 .pricingSection {

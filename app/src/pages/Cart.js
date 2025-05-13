@@ -40,18 +40,31 @@ export function Cart() {
                                 <div className={styles.itemTitle}>{product.title}</div>
 
                                 <div className={styles.quantityControl}>
-                                    <button
-                                        className={styles.quantityButton}
-                                        onClick={() => handleQuantity(0, product.id)}>
-                                        -
-                                    </button>
+                                   {product.quantity != 1 ? (
+                                        <button
+                                            className={styles.quantityButton}
+                                            onClick={() => handleQuantity(0, product.id)}>
+                                            -
+                                        </button>
+                                    ) : (
+                                       <img className={styles.trash} src="/icons/trash-solid.svg" onClick={() => handleQuantity(0, product.id)}></img>
+                                    )}
                                     <span className={styles.quantityDisplay}>{product.quantity}</span>
-                                    <button
-                                        className={styles.quantityButton}
-                                        onClick={() => handleQuantity(1, product.id)} >
-                                        +
-                                    </button>
+                        
+                                   {product.quantity != product.quantityInStock ? (
+                                        <button
+                                            className={styles.quantityButton}
+                                            onClick={() => handleQuantity(1, product.id)} >
+                                            +
+                                        </button>
+                                    ) : (
+                                        <button 
+                                            style={{width: "35px", height: "35px", background: "none", border: "none"}}>
+                                        </button>
+                                    )}
+
                                 </div>
+                                <span className={styles.stock}>Quantidade em estoque: {product.quantityInStock}</span>
                             </div>
 
                             <div className={styles.itemPrice}> {(product.price * product.quantity).toFixed(2)} R$ </div>
@@ -59,10 +72,10 @@ export function Cart() {
                     ))}
                 </main>
 
-                <hr className={styles.divisionLine}/>
+                <hr className={styles.divisionLine} />
                 <div className={styles.totalContainer}>
                     <span className={styles.total}>
-                        Total: {state.reduce( (acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
+                        Total: {state.reduce((acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
                     </span>
                     <button className={styles.continueButton}>
                         Continuar

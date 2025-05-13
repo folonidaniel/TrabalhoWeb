@@ -9,5 +9,6 @@
         "Plataforma",
         "Quebra-cabeça"
     ],
-    "price": 70.00
+    "price": 70.00,
+    "quantityInStock": 10
 }

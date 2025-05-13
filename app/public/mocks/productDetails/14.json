@@ -10,5 +10,6 @@
         "Ação",
         "Mundo Aberto"
     ],
-    "price": 100.00
+    "price": 100.00,
+    "quantityInStock": 8
 }

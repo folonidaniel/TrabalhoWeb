@@ -4,5 +4,6 @@
     "description": "Ajude Madeline a enfrentar seus demônios internos em sua jornada até o topo da Montanha Celeste, nesse jogo de plataforma super afiado dos criadores de TowerFall. Desbrave centenas de desafios meticulosos, descubra segredos complicados e desvende o mistério da montanha.",
     "images": ["/game-imgs/celeste.jpg"],
     "categories": ["Plataforma", "Aventura"],
-    "price": 60.00
+    "price": 60.00,
+    "quantityInStock": 7
 }

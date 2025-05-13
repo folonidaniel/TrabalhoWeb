@@ -9,5 +9,6 @@
         "Plataforma",
         "Aventura"
     ],
-    "price": 90.00
+    "price": 90.00,
+    "quantityInStock": 7
 }

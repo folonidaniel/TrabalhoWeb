@@ -52,6 +52,14 @@
     overflow: hidden;
 }
 
+.trash{
+    width: 18px;
+    height: 21px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
 .quantityButton {
     background: none;
     border: none;
@@ -70,6 +78,11 @@
     font-weight: bold;
     padding: 0 15px;
     font-size: 18px;
+}
+
+.stock {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .itemPrice {
