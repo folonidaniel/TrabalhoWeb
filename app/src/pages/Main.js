@@ -3,8 +3,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 export function Main() {
+  const navigate = useNavigate()
   const [bannerIndex, setBannerIndex] = useState(0)
   const bannerImgs = [
       {
@@ -26,6 +28,12 @@ export function Main() {
     else newBannerIndex = bannerIndex+1
     setBannerIndex(newBannerIndex)
   }, 20000)
+  
+
+  function handleSearch(event){
+    if(event.key !== "Enter" && event.type !== "click") return
+    navigate("/search", { state: event.target.value})
+  }
 
   return (
     <>
@@ -41,9 +49,8 @@ export function Main() {
           </a>
           <div className={styles.circlesContainer}>
             {bannerImgs.map( (item, i) => (
-              <div className={styles.circlesContainer}>
+              <div key={i} className={styles.circlesContainer}>
                 <img
-                  key={i}
                   style={{left: bannerImgs.length <= 3 ? 45 + i*5 + "%"  : 45 - (bannerImgs.length) + i*5 + "%" }}
                   className={styles["circles"]}
                   src={bannerIndex === i ? "/icons/selected-circle.svg" : "/icons/circle.svg"}
@@ -55,7 +62,7 @@ export function Main() {
         </div>
       </div>
       <div className={styles["center-containers"]}>
-        <SearchBar></SearchBar>
+        <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch}/>
       </div>
       <h3 className={styles["category-titles"]}>Plataforma</h3>
       <div className={styles["category"]}>

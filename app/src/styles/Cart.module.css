@@ -131,6 +131,23 @@
     cursor: pointer;
 }
 
+.h1 {
+    margin-bottom: 10px;
+}
+
+.emptyCartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emptyCart {
+    background-color: #01257D;
+    color: white;
+    min-height: 25px;
+    padding: 5px 5px 5px 5px;
+}
+
 @media (max-width: 768px) {
     .quantityControl {
         margin-left: 20px;

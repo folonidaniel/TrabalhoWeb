@@ -30,7 +30,7 @@ export function ProductDetails() {
     const navigate = useNavigate()
 
     if (error) return <div>Product Not Found</div>
-    else if (!isLoaded) return <div>Loading...</div>
+    else if (!isLoaded) return <div>Carregando</div>
 
     function handleCart() {
         const loggedUser = sessionStorage.getItem("loggedUser")
@@ -135,7 +135,8 @@ export function ProductDetails() {
                                     </button>
                                 ) : (
                                     <button
-                                        style={{ width: "35px", height: "35px", background: "none", border: "none" }}>
+                                        className={styles.quantityControl}
+                                        style={{minWidth: "15px", minHeight: "5px"}}>
                                     </button>
                                 )}
                             </div>

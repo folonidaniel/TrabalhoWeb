@@ -139,7 +139,7 @@
         "title": "Dark Souls 3",
         "description": "Encare um mundo sombrio e brutal em Dark Souls 3. Explore ruínas desoladas, enfrente inimigos impiedosos e descubra segredos ocultos neste RPG de ação desafiador.",
         "images": [
-            "/game-imgs/dark-souls-3.jpg"
+            "/game-imgs/dark-souls3.jpg"
         ],
         "categories": [
             "RPG",
@@ -189,5 +189,20 @@
             "Mundo Aberto"
         ],
         "price": 100.00
+    },
+    {
+        "id": 15,
+        "title": "Hollow Knight",
+        "description": "Explore o vasto mundo subterrâneo de Hallownest, enfrente inimigos desafiadores e descubra segredos antigos neste aclamado metroidvania em 2D.",
+        "images": [
+            "/game-imgs/hollow-knight.png"
+        ],
+        "categories": [
+            "Metroidvania",
+            "Ação",
+            "Aventura"
+        ],
+        "price": 60.00,
+        "quantityInStock": 5
     }
 ]

@@ -88,7 +88,10 @@ export function Cart() {
         return (
             <div>
                 <Navbar></Navbar>
-                <h1>Vazio :(</h1>
+                <div className={styles.emptyCartContainer}>
+                    <h1 className={styles.h1}>O carrinho está vazio</h1>
+                    <span className={styles.emptyCart}>Adicione jogos <a href="/">aqui</a></span>
+                </div>
                 <Footer></Footer>
             </div>
         )
