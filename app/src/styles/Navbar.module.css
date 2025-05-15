@@ -40,6 +40,63 @@
     margin-right: 10px;
 }
 
+@keyframes showSidebar {
+  from {width: 5vw;}
+  to {width: 100vw;}
+}
+
+@keyframes showText {
+   from {opacity: 0%;} 
+   to {opacity: 100%;}
+}
+
+.sidebar {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #01257D;
+    animation-name: showSidebar;
+    animation-duration: 0.7s;
+}
+
+.sidebarItems {
+    opacity: 0%;
+    animation-name: showText;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+    margin-top: 25px;
+    text-decoration: none;
+}
+
+.sidebarIcons {
+    opacity: 0%;
+    animation-name: showText;
+    animation-duration: 0.5s;
+    animation-delay: 0.7s;
+    animation-fill-mode: forwards;
+    color: white;
+}
+
+#closeButton {
+   width: 33.5px; 
+   height: 45px;
+   position: absolute;
+   top: 10px;
+   left: 10px;
+   cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
     .nav-right-items {
         display: none;
