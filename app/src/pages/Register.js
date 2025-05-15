@@ -61,7 +61,7 @@ export function Register() {
     setFinished(true)
     setTimeout(() => {
       navigate("/login", { state: location.state })
-    }, 2500);
+    }, 2000);
   }
 
   if (!hasFinished) {

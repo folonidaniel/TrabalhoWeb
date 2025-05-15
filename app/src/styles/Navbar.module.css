@@ -70,7 +70,7 @@
     opacity: 0%;
     animation-name: showText;
     animation-duration: 0.5s;
-    animation-delay: 0.5s;
+    animation-delay: 0.3s;
     animation-fill-mode: forwards;
     color: white;
     font-size: xx-large;
@@ -83,7 +83,7 @@
     opacity: 0%;
     animation-name: showText;
     animation-duration: 0.5s;
-    animation-delay: 0.7s;
+    animation-delay: 0.3s;
     animation-fill-mode: forwards;
     color: white;
 }
