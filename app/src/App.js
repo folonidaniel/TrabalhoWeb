@@ -7,6 +7,7 @@ import { Cart } from "./pages/Cart"
 import { AboutUs } from "./pages/AboutUs"
 import { Search } from "./pages/Search"
 import { MyAccount } from './pages/MyAccout';
+import { Checkout } from './pages/Checkout';
 import { Main } from "./pages/Main"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs/>}/>
         <Route path="/search" element={<Search/>}/>
         <Route path="/my-account" element={<MyAccount/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
     </BrowserRouter>
   );

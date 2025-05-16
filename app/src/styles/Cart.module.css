@@ -142,10 +142,15 @@
 }
 
 .emptyCart {
-    background-color: #01257D;
-    color: white;
+    color: #01257D;
+    font-weight: bold;
     min-height: 25px;
     padding: 5px 5px 5px 5px;
+}
+
+.a {
+    color: #01257D;
+    padding: 2px;
 }
 
 @media (max-width: 768px) {

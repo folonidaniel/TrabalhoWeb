@@ -77,9 +77,11 @@ export function Cart() {
                     <span className={styles.total}>
                         Total: {state.reduce((acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
                     </span>
-                    <button className={styles.continueButton}>
-                        Continuar
-                    </button>
+                    <a href="/checkout">
+                        <button className={styles.continueButton}>
+                            Continuar
+                        </button>
+                    </a>
                 </div>
                 <Footer></Footer>
             </div>
@@ -90,7 +92,7 @@ export function Cart() {
                 <Navbar></Navbar>
                 <div className={styles.emptyCartContainer}>
                     <h1 className={styles.h1}>O carrinho está vazio</h1>
-                    <span className={styles.emptyCart}>Adicione jogos <a href="/">aqui</a></span>
+                    <span className={styles.emptyCart}>Adicione jogos <a href="/" className={styles.a}>aqui</a></span>
                 </div>
                 <Footer></Footer>
             </div>
