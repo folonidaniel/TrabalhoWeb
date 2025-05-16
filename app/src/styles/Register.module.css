@@ -39,15 +39,6 @@
     color: white
 }
 
-.errorContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: rgba(255, 0, 0, 0.5);
-    border-radius: 10px;
-    color: white;
-}
-
 .input{
     background-color: #f1f1f1;
     color: black;

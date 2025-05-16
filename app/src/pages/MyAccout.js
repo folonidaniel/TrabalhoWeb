@@ -2,15 +2,18 @@ import { useNavigate } from "react-router"
 import { useState } from "react"
 import styles from "../styles/MyAccount.module.css"
 import Navbar from "../components/Navbar"
-import SucessPopup from "../components/SuccessPopup"
+import Error from "../components/Error"
+import Success from "../components/Success"
+import { isValidEmail, isValidPhone } from "../Utils"
 
 export function MyAccount() {
     const navigate = useNavigate()
-    const [hasFinished, setFinished] = useState(false)
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
     const loggedUser = JSON.parse(sessionStorage.getItem("loggedUser"))
     if (loggedUser === null) navigate("/login")
 
-    function handleExit(event){
+    function handleExit(event) {
         event.preventDefault()
         sessionStorage.removeItem("loggedUser")
         navigate("/")
@@ -18,13 +21,41 @@ export function MyAccount() {
 
     function handleUpdate(event) {
         event.preventDefault()
+
+        const inputs = Array.from(document.getElementsByTagName("input"))
+        const emailElem = document.getElementsByTagName("input")[3]
+        const phoneElem = document.getElementsByTagName("input")[2]
+
+        let hasInvalidInput = false
+        let errorMsg = ""
+        if (!isValidEmail(emailElem.value)) {
+            emailElem.className = styles.invalidInput
+            hasInvalidInput = true
+            errorMsg += "Email inválido"
+        }
+        if (!isValidPhone(phoneElem.value)) {
+            phoneElem.className = styles.invalidInput
+            if (hasInvalidInput) errorMsg += " e "
+            errorMsg += "Telefone inválido"
+            hasInvalidInput = true
+        }
+        if (hasInvalidInput) {
+            setError(errorMsg)
+            setTimeout(() => {
+                emailElem.className = styles.input
+                phoneElem.className = styles.input
+                setError(null)
+            }, 2000)
+            return;
+        }
+
+
         let users = JSON.parse(sessionStorage.getItem("users"))
         if (users === null) users = []
-        
-        const inputs = Array.from(document.getElementsByTagName("input"))
+
         const updatedUser = {}
         inputs.forEach((input) => {
-            if(input.value !== "") updatedUser[input.name] = input.value
+            if (input.value !== "") updatedUser[input.name] = input.value
             else updatedUser[input.name] = loggedUser[input.name]
         })
         sessionStorage.setItem("loggedUser", JSON.stringify(updatedUser))
@@ -34,69 +65,71 @@ export function MyAccount() {
             return user
         })
         sessionStorage.setItem("users", JSON.stringify(updatedUsers))
-        setFinished(true)
+        setSuccess("Dados da conta atualizados com sucesso!")
         setTimeout(() => {
-            navigate("/")
-        }, 1500);
+            setSuccess(null)
+        }, 2500)
     }
-    
-    if (!hasFinished) {
-        return (
-            <>
-                <Navbar />
-                <div className={styles.titleContainer}><h1 className={styles.title}>Minha Conta</h1></div>
-                <main className={styles.main}>
-                    <form action="/update/user" method="POST" className={styles.form}>
-                        <label className={styles.label} htmlFor="name">Nome: </label>
-                        <input
-                            className={styles.input}
-                            required
-                            defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.name : ""}
-                            name="name" type="text" />
-                        <label className={styles.label} htmlFor="address">Endereço: </label>
-                        <input
-                            className={styles.input}
-                            required
-                            defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.address : ""}
-                            name="address"
-                            type="text" />
-                        <label className={styles.label} htmlFor="phone">Telefone: </label>
-                        <input
-                            className={styles.input}
-                            required
-                            defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.phone : ""}
-                            name="phone"
-                            type="tel" />
-                        <label className={styles.label} htmlFor="email">Email: </label>
-                        <input className={styles.input}
-                            required
-                            defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.email : ""}
-                            name="email"
-                            type="text" />
-                        <label className={styles.label} htmlFor="password">Senha: </label>
-                        <input
-                            className={styles.input}
-                            name="password"
-                            type="password" />
-                        <div className={styles.buttonsContainer}>
-                            <button
-                                onClick={handleExit}
-                                style={{ backgroundColor: "red" }}
-                                className={styles.buttons}>Sair</button>
-                            <button
-                                onClick={handleUpdate}
-                                style={{ backgroundColor: "#01257D" }}
-                                className={styles.buttons}>Atualizar</button>
-                        </div>
-                    </form>
-                </main>
-            </>
-        )
-    } else {
-        return (
-            <main className={styles.popupContainer}>
-                <SucessPopup color="blue" title="Dados da conta atualizados com sucesso!" msg=""/>
+
+    return (
+        <>
+            <Navbar />
+            <div className={styles.titleContainer}><h1 className={styles.title}>Minha Conta</h1></div>
+            <main className={styles.main}>
+                {success !== null ? (
+                    <Success message={success} />
+                ) : (
+                    <></>
+                )}
+                {error !== null ? (
+                    <Error className="sus" message={error}/>
+                ) : (
+                    <></>
+                )}
+                <div className={styles.form}>
+                    <label className={styles.label} htmlFor="name">Nome: </label>
+                    <input
+                        className={styles.input}
+                        required
+                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.name : ""}
+                        name="name" type="text" />
+                    <label className={styles.label} htmlFor="address">Endereço: </label>
+                    <input
+                        className={styles.input}
+                        required
+                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.address : ""}
+                        name="address"
+                        type="text" />
+                    <label className={styles.label} htmlFor="phone">Telefone: </label>
+                    <input
+                        className={styles.input}
+                        required
+                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.phone : ""}
+                        name="phone"
+                        type="tel" />
+                    <label className={styles.label} htmlFor="email">Email: </label>
+                    <input className={styles.input}
+                        required
+                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.email : ""}
+                        name="email"
+                        type="text" />
+                    <label className={styles.label} htmlFor="password">Senha: </label>
+                    <input
+                        className={styles.input}
+                        name="password"
+                        type="password" />
+                    <div className={styles.buttonsContainer}>
+                        <button
+                            onClick={handleExit}
+                            style={{ backgroundColor: "red" }}
+                            className={styles.buttons}>Sair</button>
+                        <button
+                            onClick={handleUpdate}
+                            style={{ backgroundColor: "#01257D" }}
+                            className={styles.buttons}>Atualizar</button>
+                    </div>
+                </div>
             </main>
-        )
-    }
+        </>
+    )
 }

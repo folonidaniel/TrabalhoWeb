@@ -2,22 +2,14 @@ import styles from "../styles/Register.module.css"
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { useState } from "react"
 import SucessPopup from "../components/SuccessPopup"
+import Error from "../components/Error"
+import { isValidEmail, isValidPhone } from "../Utils"
 
 export function Register() {
   const navigate = useNavigate()
   const location = useLocation()
   const [error, setError] = useState(null);
   const [hasFinished, setFinished] = useState(false)
-
-  function isValidEmail(email) {
-    const regex = /^\S+@\S+\.\S+$/
-    return regex.test(email)
-  }
-
-  function isValidPhone(phone) {
-    const regex = /(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})/
-    return regex.test(phone)
-  }
 
   function handleRegister(e) {
     e.preventDefault()
@@ -77,12 +69,10 @@ export function Register() {
             <h1 className={styles.h1}>Cadastro</h1>
           </section>
           <section id={styles['placeholder_class']}>
-            {error === null ? (
-              <></>
+            {error !== null ? (
+              <Error message={error}/>
             ) : (
-              <div className={styles.errorContainer}>
-                <h4>{error}</h4>
-              </div>
+              <></>
             )}
             <div>
               <input className={styles.input} required name="name" type="text" placeholder="Nome:" />
