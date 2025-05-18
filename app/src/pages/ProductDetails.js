@@ -73,23 +73,21 @@ export function ProductDetails() {
         if (cart == null) cart = []
 
         let updatedProductQuantity = false
-        cart = cart.map((product) => {
-            if (product.id == params.id) {
+        cart = cart.map((item) => {
+            if (item.id == params.id) {
                 updatedProductQuantity = true
-                product.quantity += quantity
-                return product
+                let newProduct = { ...item }
+                newProduct.quantity += quantity
+                return newProduct
             }
+            return item
         })
         if (!updatedProductQuantity) {
-            cart.push({
-                id: product.id,
-                quantity: product.quantity + quantity,
-                title: product.title,
-                images: product.images,
-                categories: product.categories,
-                price: product.price
-            })
+            let newProduct = { ...product }
+            newProduct.quantity = quantity
+            cart.push(newProduct)
         }
+        sessionStorage.setItem("cart", JSON.stringify(cart))
         sessionStorage.setItem("cart", JSON.stringify(cart))
         navigate("/checkout")
     }

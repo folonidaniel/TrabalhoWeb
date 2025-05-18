@@ -2,37 +2,91 @@ import styles from "../styles/Main.module.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
+import { CheckForMobile } from "../Utils"
 
 export function Main() {
   const navigate = useNavigate()
   const [bannerIndex, setBannerIndex] = useState(0)
-  const bannerImgs = [
-      {
-        id: 15,
-        path: "/game-imgs/hollow-knight-banner.png"  
-      },
-      {
-        id: 1,
-        path: "/game-imgs/celeste-banner.png"  
-      },
-      {
-        id: 5,
-        path: "/game-imgs/ori-and-the-blind-forest-banner.jpg"  
-      }
-  ]
-  setInterval( () => {
-    let newBannerIndex
-    if(bannerIndex+1 === bannerImgs.length) newBannerIndex = 0
-    else newBannerIndex = bannerIndex+1
-    setBannerIndex(newBannerIndex)
-  }, 20000)
-  
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [categories, setCategories] = useState([])
+  const [products, setProducts] = useState({})
+  const [counters, setCounters] = useState({})
+  const isOnMobile = CheckForMobile()
 
-  function handleSearch(event){
-    if(event.key !== "Enter" && event.type !== "click") return
-    navigate("/search", { state: event.target.value})
+  const bannerImgs = [
+    {
+      id: 15,
+      path: "/game-imgs/hollow-knight-banner.png"
+    },
+    {
+      id: 1,
+      path: "/game-imgs/celeste-banner.png"
+    },
+    {
+      id: 5,
+      path: "/game-imgs/ori-and-the-blind-forest-banner.jpg"
+    }
+  ]
+
+  useEffect( () => {
+    const interval = setInterval(() => {
+      setBannerIndex((i) => {
+        if(i + 1 === bannerImgs.length) return 0
+        else return i+1
+      })
+    }, 5000)
+    return () => clearInterval(interval)
+  })
+
+  useEffect(() => {
+    fetch(`/mocks/main/all.json`)
+      .then(res => res.json())
+      .then(
+        (products) => {
+          let initialCategories = []
+          let initialProducts = {}
+          let initialCounters = {}
+
+          products.forEach((product) => {
+            product.categories.forEach((category) => {
+              if (!initialCategories.includes(category)) initialCategories.push(category)
+              if (!(category in initialProducts)) initialProducts[category] = []
+              if (!(category in initialCounters)) initialCounters[category] = 0
+              initialProducts[category].push(product)
+            })
+          })
+
+          setCategories(initialCategories)
+          setProducts(initialProducts)
+          setCounters(initialCounters)
+          setIsLoaded(true);
+        },
+
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
+
+  function handleSearch(event) {
+    if (event.key !== "Enter" && event.type !== "click") return
+    navigate("/search", { state: event.target.value })
+  }
+
+  function handlePrevious(event) {
+    let newCounters = { ...counters }
+    newCounters[event.target.getAttribute("category")]--
+    setCounters(newCounters)
+  }
+
+  function handleNext(event) {
+    let newCounters = { ...counters }
+    newCounters[event.target.getAttribute("category")]++
+    setCounters(newCounters)
   }
 
   return (
@@ -40,188 +94,89 @@ export function Main() {
       <Navbar></Navbar>
       <div className={styles["center-containers"]}>
         <div id={styles["banner-container"]}>
-          <a href={"/product/" + bannerImgs[bannerIndex].id}>
+          <a className={styles.aBanner} href={"/product/" + bannerImgs[bannerIndex].id}>
             <img
               id={styles["banner"]}
               src={bannerImgs[bannerIndex].path}
               alt=""
-          />
+            />
           </a>
           <div className={styles.circlesContainer}>
-            {bannerImgs.map( (item, i) => (
+            {bannerImgs.map((item, i) => (
               <div key={i} className={styles.circlesContainer}>
                 <img
-                  style={{left: bannerImgs.length <= 3 ? 45 + i*5 + "%"  : 45 - (bannerImgs.length) + i*5 + "%" }}
+                  style={{ left: bannerImgs.length <= 3 ? 45 + i * 5 + "%" : 45 - (bannerImgs.length) + i * 5 + "%" }}
                   className={styles["circles"]}
                   src={bannerIndex === i ? "/icons/selected-circle.svg" : "/icons/circle.svg"}
                   alt=""
-              />
+                />
               </div>
             ))}
           </div>
         </div>
       </div>
       <div className={styles["center-containers"]}>
-        <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch}/>
+        <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
       </div>
-      <h3 className={styles["category-titles"]}>Plataforma</h3>
-      <div className={styles["category"]}>
-        <img
-          className={styles["less"]}
-          src="/icons/less-than-solid.svg"
-          alt="Voltar"
-        />
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/celeste.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Celeste</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/dead-cells.png"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Dead Cells</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/cuphead.png"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Cuphead</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/unravel.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Unravel</h4>
-        </div>
-        <div className="last-cover-art-container">
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/ori-and-the-blind-forest.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Ori and the Blind Forest</h4>
-        </div>
-        <img
-          className={styles["greater"]}
-          src="/icons/greater-than-solid.svg"
-          alt="Voltar"
-        />
-      </div>
-      <h3 className={styles["category-titles"]}>Roguelike</h3>
-      <div className={styles["category"]}>
-        <img
-          className={styles["less"]}
-          src="/icons/less-than-solid.svg"
-          alt="Voltar"
-        />
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/hades.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Hades</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/children-of-morta.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Children of Morta</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/dead-cells.png"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Dead Cells</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/neon-abyss.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Neon Abyss</h4>
-        </div>
-        <div className="last-cover-art-container">
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/the-binding-of-isaac.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>The Binding of Isaac</h4>
-        </div>
-        <img
-          className={styles["greater"]}
-          src="/icons/greater-than-solid.svg"
-          alt="Voltar"
-        />
-      </div>
-      <h3 className={styles["category-titles"]}>RPG</h3>
-      <div className={styles["category"]}>
-        <img
-          className={styles["less"]}
-          src="/icons/less-than-solid.svg"
-          alt="Voltar"
-        />
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/skyrim.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Skyrim</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/dark-souls3.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Dark Souls 3</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/fallout-nv.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Fallout New Vegas</h4>
-        </div>
-        <div className={styles["container-cover-arts"]}>
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/fallout3.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Fallout 3</h4>
-        </div>
-        <div className="last-cover-art-container">
-          <img
-            className={styles["cover-art"]}
-            src="/game-imgs/fallout4.jpg"
-            alt=""
-          />
-          <h4 className={styles["game-titles"]}>Fallout4</h4>
-        </div>
-        <img
-          className={styles["greater"]}
-          src="/icons/greater-than-solid.svg"
-          alt="Voltar"
-        />
+      <div className={styles.outerContainer}>
+        {categories.map((category, i) => (
+          <div key={i} className={styles.container}>
+            <h3 className={styles["category-titles"]}>{category}</h3>
+            <div className={styles["category"]}>
+              {!isOnMobile ? (
+                <>
+                  {counters[category] !== 0 && (
+                    <img
+                      className={styles["less"]}
+                      src="/icons/less-than-solid.svg"
+                      category={category}
+                      onClick={handlePrevious}
+                      alt="Voltar"
+                    />
+                  )}
+                  {
+                    products[category].slice(counters[category] * 4, (counters[category] + 1) * 4).map((product, j) => (
+                      <div key={j} className={styles["container-cover-arts"]}>
+                        <a href={`/product/${product.id}`}>
+                          <img
+                            className={styles["cover-art"]}
+                            src={product.images[0]}
+                            alt=""
+                          />
+                        </a>
+                        <h4 className={styles["game-titles"]}>{product.title}</h4>
+                      </div>
+                    ))
+                  }
+                  {(counters[category] + 1) * 4 < products[category].length && (
+                    <img
+                      className={styles["greater"]}
+                      src="/icons/greater-than-solid.svg"
+                      category={category}
+                      onClick={handleNext}
+                      alt="Voltar"
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {products[category].map((product, j) => (
+                    <div key={j} className={styles["container-cover-arts"]}>
+                      <a href={`/product/${product.id}`}>
+                        <img
+                          className={styles["cover-art"]}
+                          src={product.images[0]}
+                          alt=""
+                        />
+                      </a>
+                      <h4 className={styles["game-titles"]}>{product.title}</h4>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
       <Footer></Footer>
     </>

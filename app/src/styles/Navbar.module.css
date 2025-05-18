@@ -41,13 +41,23 @@
 }
 
 @keyframes showSidebar {
-  from {width: 5vw;}
-  to {width: 100vw;}
+    from {
+        width: 5vw;
+    }
+
+    to {
+        width: 100vw;
+    }
 }
 
 @keyframes showText {
-   from {opacity: 0%;} 
-   to {opacity: 100%;}
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
 }
 
 .sidebar {
@@ -63,38 +73,42 @@
     justify-content: center;
     background-color: #01257D;
     animation-name: showSidebar;
-    animation-duration: 0.7s;
+    animation-duration: 0.4s;
+    overflow-x: hidden;
+    animation-timing-function: linear;
 }
 
 .sidebarItems {
-    opacity: 0%;
-    animation-name: showText;
-    animation-duration: 0.5s;
-    animation-delay: 0.3s;
-    animation-fill-mode: forwards;
+    text-wrap: nowrap;
     color: white;
     font-size: xx-large;
     font-weight: bold;
     margin-top: 25px;
     text-decoration: none;
+    opacity: 0%;
+    animation-name: showText;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
 }
 
 .sidebarIcons {
-    opacity: 0%;
-    animation-name: showText;
-    animation-duration: 0.5s;
-    animation-delay: 0.3s;
-    animation-fill-mode: forwards;
     color: white;
+    animation-name: showText;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
 }
 
 #closeButton {
-   width: 33.5px; 
-   height: 45px;
-   position: absolute;
-   top: 10px;
-   left: 10px;
-   cursor: pointer;
+    width: 33.5px;
+    height: 45px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    opacity: 0%;
+    animation-name: showText;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
 }
 
 @media only screen and (max-width: 600px) {

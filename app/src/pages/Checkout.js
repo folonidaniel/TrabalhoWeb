@@ -31,12 +31,13 @@ export function Checkout() {
         return regex.test(cvv)
     }
     
-    function handlePaymentSection(){
+    function handlePaymentSection(event){
         const inputs = document.getElementsByTagName("input")
         const nameElem = inputs[0]
         const numberElem = inputs[1]
         const expDateElem = inputs[2]
         const cvvElem = inputs[3]
+        const action = event.target.getAttribute("action")
         
         let hasInvalidInput = false
         if(nameElem.value.length <= 2){
@@ -55,7 +56,7 @@ export function Checkout() {
             cvvElem.className = styles.invalidInput
             hasInvalidInput = true
         }
-        if (hasInvalidInput) {
+        if (hasInvalidInput && action !== "back") {
             setTimeout(() => {
                 nameElem.className = styles.input
                 numberElem.className = styles.input
@@ -69,9 +70,9 @@ export function Checkout() {
         Array.from(inputs).forEach( (input) => {
             newCardInfo[input.name] = input.value
         }) 
-        console.log(newCardInfo)
         setCardInfo(newCardInfo)
-        setStep("review")
+        if(action === "back") setStep("address")
+        else setStep("review")
     }
     
     function handleSuccess(){
@@ -158,10 +159,10 @@ export function Checkout() {
                                     </div>
 
                                     <div className={styles.buttonContainer}>
-                                        <button className={styles.secondaryButton} onClick={() => setStep("address")}>
+                                        <button action="back" className={styles.secondaryButton} onClick={handlePaymentSection}>
                                             Endereço
                                         </button>
-                                        <button className={styles.primaryButton} onClick={handlePaymentSection}>
+                                        <button action="forward" className={styles.primaryButton} onClick={handlePaymentSection}>
                                             Revisar Compra
                                         </button>
                                     </div>

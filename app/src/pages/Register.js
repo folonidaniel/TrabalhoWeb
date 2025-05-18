@@ -81,7 +81,7 @@ export function Register() {
               <input className={styles.input} required name="address" type="text" placeholder="Endereço:" />
             </div>
             <div>
-              <input className={styles.input} required name="phone" type="tel" placeholder="Telefone:" />
+              <input className={styles.input} required name="phone" type="text" placeholder="Telefone:" />
             </div>
             <div>
               <input className={styles.input} required name="email" type="text" placeholder="Email:" />

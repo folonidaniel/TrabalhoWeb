@@ -47,8 +47,7 @@
             "/game-imgs/unravel.jpg"
         ],
         "categories": [
-            "Plataforma",
-            "Quebra-cabeça"
+            "Plataforma"
         ],
         "price": 70.00
     },
@@ -115,8 +114,7 @@
         ],
         "categories": [
             "Roguelike",
-            "Ação",
-            "Terror"
+            "Ação"
         ],
         "price": 65.00
     },
@@ -143,8 +141,7 @@
         ],
         "categories": [
             "RPG",
-            "Ação",
-            "Desafiador"
+            "Ação"
         ],
         "price": 110.00
     },
@@ -198,7 +195,6 @@
             "/game-imgs/hollow-knight.png"
         ],
         "categories": [
-            "Metroidvania",
             "Ação",
             "Aventura"
         ],

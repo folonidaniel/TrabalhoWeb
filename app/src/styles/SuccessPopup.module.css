@@ -1,4 +1,8 @@
 .containerWhite {
+    margin-left: 5px;
+    margin-right: 5px;
+    text-wrap: wrap;
+    text-align: center;
     background-color: white;
     padding: 50px;
     border-radius: 10px;
@@ -9,6 +13,8 @@
 }
 
 .containerBlue {
+    text-wrap: wrap;
+    text-align: center;
     background-color: #01257D;
     padding: 50px;
     border-radius: 10px;

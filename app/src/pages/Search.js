@@ -51,7 +51,7 @@ export function Search(){
             <Navbar/>
             <SearchBar 
                 initialValue={location.state !== null ? location.state : ""} 
-                width="500px"
+                width="80vmin"
                 onChange={handleChange}/>
 
             <div className={styles.resultsContainer}>
