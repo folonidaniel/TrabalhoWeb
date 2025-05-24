@@ -1,25 +1,47 @@
 import { useNavigate } from "react-router"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styles from "../styles/MyAccount.module.css"
 import Navbar from "../components/Navbar"
 import Error from "../components/Error"
 import Success from "../components/Success"
-import { isValidEmail, isValidPhone } from "../Utils"
+import { readLoggedUser, isValidEmail, isValidPhone, deleteLoggedUser, readUsers, updateLoggedUser, updateUsers } from "../Utils"
+import Loading from "../components/Loading"
+import FullPageError from "../components/FullPageError"
 
 export function MyAccount() {
     const navigate = useNavigate()
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const loggedUser = JSON.parse(sessionStorage.getItem("loggedUser"))
-    if (loggedUser === null) navigate("/login")
+    const [loggedUser, setLoggedUser] = useState(null)
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    function handleExit(event) {
+    useEffect( () => {
+        const fetchData = async () => {
+            const fetchedUser = await readLoggedUser()
+            if (fetchedUser == null){
+                navigate("/login") 
+                return;
+            }
+            setLoggedUser(fetchedUser)
+            setIsLoaded(true)
+        }
+        fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+    }, [])
+
+    async function handleExit(event) {
         event.preventDefault()
-        sessionStorage.removeItem("loggedUser")
+        await deleteLoggedUser()
         navigate("/")
     }
 
-    function handleUpdate(event) {
+    async function handleUpdate(event) {
         event.preventDefault()
 
         const inputs = Array.from(document.getElementsByTagName("input"))
@@ -50,7 +72,14 @@ export function MyAccount() {
         }
 
 
-        let users = JSON.parse(sessionStorage.getItem("users"))
+        let users = await readUsers().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
         if (users === null) users = []
 
         const updatedUser = {}
@@ -58,17 +87,45 @@ export function MyAccount() {
             if (input.value !== "") updatedUser[input.name] = input.value
             else updatedUser[input.name] = loggedUser[input.name]
         })
-        sessionStorage.setItem("loggedUser", JSON.stringify(updatedUser))
+        await updateLoggedUser(updatedUser).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
 
         let updatedUsers = users.map((user) => {
             if (user.email === loggedUser.email) return updatedUser
             return user
         })
-        sessionStorage.setItem("users", JSON.stringify(updatedUsers))
+        await updateUsers(updatedUsers).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
         setSuccess("Dados da conta atualizados com sucesso!")
         setTimeout(() => {
             setSuccess(null)
         }, 2500)
+    }
+    
+    if(!isLoaded){
+        return (
+            <>
+                <Navbar/> 
+                <Loading/>
+            </>
+        )
+    } else if(error !== null){
+        return (
+            <FullPageError title={error.title} message={error.message}/>
+        )
     }
 
     return (
@@ -91,26 +148,26 @@ export function MyAccount() {
                     <input
                         className={styles.input}
                         required
-                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.name : ""}
+                        defaultValue={loggedUser.name}
                         name="name" type="text" />
                     <label className={styles.label} htmlFor="address">Endereço: </label>
                     <input
                         className={styles.input}
                         required
-                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.address : ""}
+                        defaultValue={loggedUser.address}
                         name="address"
                         type="text" />
                     <label className={styles.label} htmlFor="phone">Telefone: </label>
                     <input
                         className={styles.input}
                         required
-                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.phone : ""}
+                        defaultValue={loggedUser.phone}
                         name="phone"
                         type="tel" />
                     <label className={styles.label} htmlFor="email">Email: </label>
                     <input className={styles.input}
                         required
-                        defaultValue={Object.keys(loggedUser).length > 0 ? loggedUser.email : ""}
+                        defaultValue={loggedUser.email}
                         name="email"
                         type="text" />
                     <label className={styles.label} htmlFor="password">Senha: </label>

@@ -1,0 +1,18 @@
+.errorContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorIcon { 
+    margin-top: 10px;
+    width: 150px;
+    height: 150px;
+}
+
+.title {
+    margin-bottom: 3px;
+}

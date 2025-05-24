@@ -13,24 +13,25 @@ export function Search(){
     const [initialValues, setInitialValues] = useState([])
     const [initialSearch, setInitialSearch] = useState(location.state)
     useEffect(() => {
-        fetch(`/mocks/main/all.json`)
-            .then(res => res.json())
-            .then(
-                (products) => {
-                    setIsLoaded(true);
-                    setInitialValues(products)
-                    setResults(products)
-                    if(initialSearch !== null){
-                        search(initialSearch, products)
-                        setInitialSearch(null)
-                    }
-                },
-
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
+        const fetchData = async () => {
+            const response = await fetch("/mocks/main/all.json")
+            const products = await response.json()
+            setInitialValues(products)
+            setResults(products)
+            setIsLoaded(true);
+            if(initialSearch !== null){
+                search(initialSearch, products)
+                setInitialSearch(null)
+            }
+        }
+        fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
     }, [])
 
     if (error) return <div>Erro Interno</div>
@@ -39,7 +40,7 @@ export function Search(){
     function search(str, array){
         const newResults = []
         array.forEach( (item) => {
-            if(item.title.match(str))
+            if(item.title.toLowerCase().match(str.toLowerCase()))
                 newResults.push(item)
         })
         setResults(newResults)

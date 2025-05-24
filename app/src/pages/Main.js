@@ -2,9 +2,10 @@ import styles from "../styles/Main.module.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
+import Loading from "../components/Loading";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-import { CheckForMobile } from "../Utils"
+import { CheckForMobile, delay } from "../Utils"
 
 export function Main() {
   const navigate = useNavigate()
@@ -31,45 +32,45 @@ export function Main() {
     }
   ]
 
-  useEffect( () => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setBannerIndex((i) => {
-        if(i + 1 === bannerImgs.length) return 0
-        else return i+1
+        if (i + 1 === bannerImgs.length) return 0
+        else return i + 1
       })
     }, 5000)
     return () => clearInterval(interval)
   })
 
-  useEffect(() => {
-    fetch(`/mocks/main/all.json`)
-      .then(res => res.json())
-      .then(
-        (products) => {
-          let initialCategories = []
-          let initialProducts = {}
-          let initialCounters = {}
+  useEffect( () => {
+      const fetchData = async () => {
+        const response = await fetch("/mocks/main/all.json")
+        const products = await response.json()
+        let initialCategories = []
+        let initialProducts = {}
+        let initialCounters = {}
 
-          products.forEach((product) => {
-            product.categories.forEach((category) => {
-              if (!initialCategories.includes(category)) initialCategories.push(category)
-              if (!(category in initialProducts)) initialProducts[category] = []
-              if (!(category in initialCounters)) initialCounters[category] = 0
-              initialProducts[category].push(product)
-            })
+        products.forEach((product) => {
+          product.categories.forEach((category) => {
+            if (!initialCategories.includes(category)) initialCategories.push(category)
+            if (!(category in initialProducts)) initialProducts[category] = []
+            if (!(category in initialCounters)) initialCounters[category] = 0
+            initialProducts[category].push(product)
           })
-
-          setCategories(initialCategories)
-          setProducts(initialProducts)
-          setCounters(initialCounters)
-          setIsLoaded(true);
-        },
-
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
+        })
+        setCategories(initialCategories)
+        setProducts(initialProducts)
+        setCounters(initialCounters)
+        setIsLoaded(true);
+      }
+      fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
   }, [])
 
   function handleSearch(event) {
@@ -87,6 +88,16 @@ export function Main() {
     let newCounters = { ...counters }
     newCounters[event.target.getAttribute("category")]++
     setCounters(newCounters)
+  }
+  
+  if(!isLoaded){
+    return (
+      <>
+        <Navbar/>
+        <Loading/>
+        <Footer/>
+      </>
+    )
   }
 
   return (

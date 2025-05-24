@@ -1,58 +1,85 @@
 import styles from "../styles/Checkout.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
 import SuccessPopup from "../components/SuccessPopup"
+import { delay, readCart, readLoggedUser, updateCart, updateStock } from "../Utils"
+import Loading from "../components/Loading"
 
 export function Checkout() {
+    const [cart, setCart] = useState(null)
+    const [loggedUser, setLoggedUser] = useState(null)
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [error, setError] = useState(null)
     const [step, setStep] = useState("address")
     const [success, setSuccess] = useState(false)
     const [cardInfo, setCardInfo] = useState(null)
     const navigate = useNavigate()
 
-    let cart = JSON.parse(sessionStorage.getItem("cart"))
-    if (cart === null) cart = []
-    if (cart.length === 0) navigate("/")
+    useEffect(() => {
+        const fetchData = async () => {
+            let fetchedCart = await readCart()
+            if (fetchedCart == null) fetchedCart = []
+            if (fetchedCart.length === 0) {
+                navigate("/")
+                return
+            }
+            setCart(fetchedCart)
 
-    let loggedUser = JSON.parse(sessionStorage.getItem("loggedUser"))
-    if (loggedUser === null) navigate("/login")
-    
-    function validateCardNumber(cardNumber){
+            let fetchedUser = await readLoggedUser()
+            if (fetchedUser === null) {
+                navigate("/login")
+                return
+            }
+            setLoggedUser(fetchedUser)
+            setIsLoaded(true)
+        }
+        fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+    }, [])
+
+    function validateCardNumber(cardNumber) {
         const regex = /^\d{4} \d{4} \d{4} \d{4}/
         return regex.test(cardNumber)
     }
 
-    function validateExpDate(expDate){
+    function validateExpDate(expDate) {
         const regex = /^\d{2}\/\d{4}/
         return regex.test(expDate)
     }
 
-    function validateCVV(cvv){
-        const regex =/^\d{3}$/ 
+    function validateCVV(cvv) {
+        const regex = /^\d{3}$/
         return regex.test(cvv)
     }
-    
-    function handlePaymentSection(event){
+
+    function handlePaymentSection(event) {
         const inputs = document.getElementsByTagName("input")
         const nameElem = inputs[0]
         const numberElem = inputs[1]
         const expDateElem = inputs[2]
         const cvvElem = inputs[3]
-        const action = event.target.getAttribute("action")
-        
+        const action = event.target.getAttribute("next")
+
         let hasInvalidInput = false
-        if(nameElem.value.length <= 2){
+        if (nameElem.value.length <= 2) {
             nameElem.className = styles.invalidInput
             hasInvalidInput = true
         }
-        if(!validateCardNumber(numberElem.value)){
+        if (!validateCardNumber(numberElem.value)) {
             numberElem.className = styles.invalidInput
             hasInvalidInput = true
         }
-        if(!validateExpDate(expDateElem.value)){
+        if (!validateExpDate(expDateElem.value)) {
             expDateElem.className = styles.invalidInput
             hasInvalidInput = true
         }
-        if(!validateCVV(cvvElem.value)){
+        if (!validateCVV(cvvElem.value)) {
             cvvElem.className = styles.invalidInput
             hasInvalidInput = true
         }
@@ -67,20 +94,47 @@ export function Checkout() {
         }
 
         let newCardInfo = {}
-        Array.from(inputs).forEach( (input) => {
+        Array.from(inputs).forEach((input) => {
             newCardInfo[input.name] = input.value
-        }) 
+        })
         setCardInfo(newCardInfo)
-        if(action === "back") setStep("address")
+        if (action === "back") setStep("address")
         else setStep("review")
     }
-    
-    function handleSuccess(){
+
+    async function handleSuccess() {
+        cart.forEach( async (product) => {
+            await updateStock(product, product.quantityInStock - product.quantity).catch(async () => {
+                setIsLoaded(true)
+                const error = {
+                    title: "Erro interno do servidor.",
+                    message: "Por favor, tente novamente."
+                }
+                setError(error)
+            })
+        })
+
+        await updateCart([]).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
+        if (error !== null) return;
+
         setSuccess(true)
-        setTimeout( () => {
-            sessionStorage.setItem("cart", JSON.stringify([]))
-            navigate("/")
-        }, 2500)
+
+        await delay(2500)
+        navigate("/")
+    }
+
+    if (!isLoaded) {
+        return (
+            <Loading />
+        )
     }
 
     if (!success) {
@@ -159,10 +213,10 @@ export function Checkout() {
                                     </div>
 
                                     <div className={styles.buttonContainer}>
-                                        <button action="back" className={styles.secondaryButton} onClick={handlePaymentSection}>
+                                        <button next="back" className={styles.secondaryButton} onClick={handlePaymentSection}>
                                             Endereço
                                         </button>
-                                        <button action="forward" className={styles.primaryButton} onClick={handlePaymentSection}>
+                                        <button next="forward" className={styles.primaryButton} onClick={handlePaymentSection}>
                                             Revisar Compra
                                         </button>
                                     </div>

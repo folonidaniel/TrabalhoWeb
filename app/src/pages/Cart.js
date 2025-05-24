@@ -1,16 +1,35 @@
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import Loading from "../components/Loading"
+import Error from "../components/Error"
 import styles from "../styles/Cart.module.css"
-
+import { delay, readCart, updateCart } from "../Utils"
+import FullPageError from "../components/FullPageError"
 
 export function Cart() {
-    let cart = JSON.parse(sessionStorage.getItem("cart"))
-    if (cart == null) cart = []
-    const [state, setState] = useState(cart)
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [state, setState] = useState(null)
+    
+    useEffect( () => {
+        const fetchData = async () => {
+            let cart = await readCart()
+            if (cart == null) cart = []
+            setState(cart)
+            setIsLoaded(true)
+        }
+        fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+    }, [])
 
-    function handleQuantity(operation, productId) {
+    async function handleQuantity(operation, productId) {
         let nextState = state.map((product) => {
             if (product.id == productId) {
                 let newProduct = { ...product }
@@ -20,10 +39,30 @@ export function Cart() {
             } else return product
         })
 
+        await updateCart(nextState).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
         nextState = nextState.filter(product => product.quantity != 0)
         setState(nextState)
-
-        sessionStorage.setItem("cart", JSON.stringify(nextState))
+    }
+    
+    if(!isLoaded){
+        return (
+            <>
+                <Navbar/>
+                <Loading/>
+                <Footer/>
+            </>
+        )
+    } else if(error !== null){
+        return (
+            <FullPageError title={error.title} message={error.message}/>
+        )
     }
 
     if (state.length > 0)

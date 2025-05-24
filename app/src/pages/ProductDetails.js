@@ -3,39 +3,54 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/ProductDetails.module.css";
+import { readLoggedUser, readCart, updateCart } from "../Utils"
+import Loading from "../components/Loading";
+import FullPageError from "../components/FullPageError";
 
 export function ProductDetails() {
     const params = useParams();
 
+    const [product, setProduct] = useState([]);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [product, setProduct] = useState([]);
-    useEffect(() => {
-        fetch(`/mocks/productDetails/${params.id}.json`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setProduct(result);
-                },
-
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
-
     const [quantity, setQuantity] = useState(1)
     const navigate = useNavigate()
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`/mocks/productDetails/${params.id}.json`)
+            const fetchedProduct = await response.json()
+            setIsLoaded(true);
+            setProduct(fetchedProduct);
+        }
+        fetchData().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+    }, [])
 
-    if (error) return <div>Product Not Found</div>
-    else if (!isLoaded) return <div>Carregando</div>
+    async function handleCart() {
+        const loggedUser = await readLoggedUser().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
 
-    function handleCart() {
-        const loggedUser = sessionStorage.getItem("loggedUser")
+        let cart = await readCart().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
 
-        let cart = JSON.parse(sessionStorage.getItem("cart"))
         if (cart == null) cart = []
 
         let updatedProductQuantity = false
@@ -53,7 +68,15 @@ export function ProductDetails() {
             newProduct.quantity = quantity
             cart.push(newProduct)
         }
-        sessionStorage.setItem("cart", JSON.stringify(cart))
+        await updateCart(cart).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
 
         if (loggedUser == null) {
             navigate("/login", { state: "/cart" })
@@ -62,14 +85,30 @@ export function ProductDetails() {
         }
     }
 
-    function handleBuyNow() {
-        const loggedUser = sessionStorage.getItem("loggedUser")
+    async function handleBuyNow() {
+        const loggedUser = await readLoggedUser().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
         if (loggedUser == null) {
             navigate("/login")
             return;
         }
 
-        let cart = JSON.parse(sessionStorage.getItem("cart"))
+        let cart = await readCart().catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
         if (cart == null) cart = []
 
         let updatedProductQuantity = false
@@ -87,11 +126,29 @@ export function ProductDetails() {
             newProduct.quantity = quantity
             cart.push(newProduct)
         }
-        sessionStorage.setItem("cart", JSON.stringify(cart))
-        sessionStorage.setItem("cart", JSON.stringify(cart))
+        await updateCart(cart).catch(async () => {
+            setIsLoaded(true)
+            const error = {
+                title: "Erro interno do servidor.",
+                message: "Por favor, tente novamente."
+            }
+            setError(error)
+        })
+
         navigate("/checkout")
     }
 
+    if (!isLoaded){
+        return (
+            <Loading/>
+        )
+    } else if(error){
+        return (
+            <FullPageError title={error.title} message={error.message}/>
+        )
+    }
+        
+    
     return (
         <>
             <Navbar></Navbar>

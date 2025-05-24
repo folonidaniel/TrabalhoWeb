@@ -1,35 +1,38 @@
 import { useNavigate, useLocation, Link } from "react-router";
 import { useState } from "react";
 import styles from "../styles/Login.module.css";
+import { readUsers, updateLoggedUser } from "../Utils";
+import FullPageError from "../components/FullPageError";
 
 export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [error, setError] = useState(null);
-  
+  const [validationError, setValidationError] = useState(null);
+  const [requestError, setRequestError] = useState(null)
+
   function isValidEmail(email) {
     const regex = /^\S+@\S+\.\S+$/
     return regex.test(email)
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
     const emailElem = document.getElementsByTagName("input")[0]
     const email = emailElem.value
     const password = document.getElementsByTagName("input")[1].value
 
-    if(!isValidEmail(email)){
+    if (!isValidEmail(email)) {
       emailElem.className = styles.invalidInput
-      setError("Email inválido")
-      setTimeout( () => {
+      setValidationError("Email inválido")
+      setTimeout(() => {
         emailElem.className = styles.input
-        setError(null)
+        setValidationError(null)
       }, 2000)
       return
     }
 
-    let users = JSON.parse(sessionStorage.getItem("users"));
+    let users = await readUsers()
 
     if (users === null) users = [];
     const userFound = users.find(
@@ -37,15 +40,24 @@ export function Login() {
     );
 
     if (userFound === undefined) {
-      setError("Email e/ou senha incorretos");
-      setTimeout(() => setError(null), 2000);
+      setValidationError("Email e/ou senha incorretos");
+      setTimeout(() => setValidationError(null), 2000);
       return;
     }
 
-    sessionStorage.setItem("loggedUser", JSON.stringify(userFound));
+    await updateLoggedUser(userFound).catch(async () => {
+      const error = {
+        title: "Erro interno do servidor.",
+        message: "Por favor, tente novamente."
+      }
+      setRequestError(error)
+    })
+
     if (location.state === null) navigate("/");
     else navigate(location.state);
   }
+  
+  if(requestError != null) return (<FullPageError title={requestError.title} message={requestError.message}/>)
 
   return (
     <>
@@ -63,11 +75,11 @@ export function Login() {
           <h1 className={styles.h1}>Login</h1>
         </section>
         <section id={styles["placeholder_class"]}>
-          {error === null ? (
+          {validationError === null ? (
             <></>
           ) : (
             <div className={styles.errorContainer}>
-              <h4>{error}</h4>
+              <h4>{validationError}</h4>
             </div>
           )}
           <div>

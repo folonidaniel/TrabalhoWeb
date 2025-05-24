@@ -3,15 +3,17 @@ import { useNavigate, useLocation, Link } from "react-router-dom"
 import { useState } from "react"
 import SucessPopup from "../components/SuccessPopup"
 import Error from "../components/Error"
-import { isValidEmail, isValidPhone } from "../Utils"
+import { isValidEmail, isValidPhone, readUsers, updateUsers } from "../Utils"
+import FullPageError from "../components/FullPageError"
 
 export function Register() {
   const navigate = useNavigate()
   const location = useLocation()
-  const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState(null);
+  const [requestError, setRequestError] = useState(null);
   const [hasFinished, setFinished] = useState(false)
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault()
 
     const inputs = Array.from(document.getElementsByTagName("input"))
@@ -32,11 +34,11 @@ export function Register() {
       hasInvalidInput = true
     }
     if (hasInvalidInput) {
-      setError(errorMsg)
+      setValidationError(errorMsg)
       setTimeout(() => {
         emailElem.className = styles.input
         phoneElem.className = styles.input
-        setError(null)
+        setValidationError(null)
       }, 2000)
       return
     }
@@ -46,15 +48,31 @@ export function Register() {
       newUser[input.name] = input.value
     })
 
-    let users = JSON.parse(sessionStorage.getItem("users"))
+    let users = await readUsers().catch(async () => {
+          const error = {
+              title: "Erro interno do servidor.",
+              message: "Por favor, tente novamente."
+          }
+          setRequestError(error)
+    })
+
     if (users === null) users = []
-    sessionStorage.setItem("users", JSON.stringify([...users, newUser]))
+    await updateUsers([...users, newUser]).catch(async () => {
+          const error = {
+              title: "Erro interno do servidor.",
+              message: "Por favor, tente novamente."
+          }
+          setRequestError(error)
+    })
+
 
     setFinished(true)
     setTimeout(() => {
       navigate("/login", { state: location.state })
     }, 2000);
   }
+  
+  if(requestError !== null) return (<FullPageError title={requestError.title} message={requestError.message}/>)
 
   if (!hasFinished) {
     return (
@@ -69,8 +87,8 @@ export function Register() {
             <h1 className={styles.h1}>Cadastro</h1>
           </section>
           <section id={styles['placeholder_class']}>
-            {error !== null ? (
-              <Error message={error}/>
+            {validationError !== null ? (
+              <Error message={validationError}/>
             ) : (
               <></>
             )}
