@@ -1,0 +1,25 @@
+#search-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    border: 1px solid #a1a1a1;
+    border-radius: 30px;
+    background-color: #F1F1F1;
+    height: 34px;
+}
+
+#search-bar {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 6px 0px;
+    height: 34px;
+    margin-left: 5px;
+}
+
+#search-icon {
+    width: 22.65px;
+    height: 22.65px;
+    cursor: pointer;
+    margin: 5px 0px 0px 5px;
+}

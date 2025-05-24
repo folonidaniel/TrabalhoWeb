@@ -1,0 +1,15 @@
+{
+    "id": 7,
+    "title": "Children of Morta",
+    "description": "Lute com os membros da família Bergson em um RPG de ação com narrativa emocional e mecânicas de roguelike. Defenda o mundo da corrupção crescente.",
+    "images": [
+        "/game-imgs/children-of-morta.jpg"
+    ],
+    "categories": [
+        "Roguelike",
+        "RPG",
+        "Ação"
+    ],
+    "price": 85.00,
+    "quantityInStock": 11
+}

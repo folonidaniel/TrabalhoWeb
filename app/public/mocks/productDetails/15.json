@@ -1,0 +1,14 @@
+{
+    "id": 15,
+    "title": "Hollow Knight",
+    "description": "Explore o vasto mundo subterrâneo de Hallownest, enfrente inimigos desafiadores e descubra segredos antigos neste aclamado metroidvania em 2D.",
+    "images": [
+        "/game-imgs/hollow-knight.png"
+    ],
+    "categories": [
+        "Ação",
+        "Aventura"
+    ],
+    "price": 60.00,
+    "quantityInStock": 5
+}

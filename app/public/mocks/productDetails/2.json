@@ -1,0 +1,9 @@
+{
+    "id": 2,
+    "title": "Dead Cells",
+    "description": "Dead Cells é um 'roguelike' de ação em plataforma estilo Metroidvania. Você vai explorar um castelo extenso e em constante mutação... Sem checkpoints. Mate, morra, aprenda, repita.",
+    "images": ["/game-imgs/dead-cells.png"],
+    "categories": ["Roguelike", "Plataforma", "Ação"],
+    "price": 47.49,
+    "quantityInStock": 5
+}

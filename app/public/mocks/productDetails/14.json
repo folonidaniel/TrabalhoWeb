@@ -1,0 +1,15 @@
+{
+    "id": 14,
+    "title": "Fallout 4",
+    "description": "Sobreviva em um mundo pós-apocalíptico, construa assentamentos e lute por sua família em uma jornada épica pelo deserto de Mojave.",
+    "images": [
+        "/game-imgs/fallout4.jpg"
+    ],
+    "categories": [
+        "RPG",
+        "Ação",
+        "Mundo Aberto"
+    ],
+    "price": 100.00,
+    "quantityInStock": 8
+}

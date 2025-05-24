@@ -1,0 +1,15 @@
+{
+    "id": 12,
+    "title": "Fallout: New Vegas",
+    "description": "Viaje pelos desertos pós-apocalípticos de Mojave em uma aventura cheia de escolhas, facções e combates intensos. Viva como um mensageiro que pode mudar o destino de New Vegas.",
+    "images": [
+        "/game-imgs/fallout-nv.jpg"
+    ],
+    "categories": [
+        "RPG",
+        "Ação",
+        "Mundo Aberto"
+    ],
+    "price": 60.00,
+    "quantityInStock": 15
+}

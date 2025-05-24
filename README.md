@@ -20,7 +20,7 @@ Na página principal do usuário ele é capaz de buscar jogos pelo título na ba
 Na página principal do administrador, ele poderá, através da navbar, acessar as seguintes páginas: _admin-search-products_, _admin-create-product_, _admin-edit-product_, _admin-search-users_, _admin-create-user_, _admin-edit-user_. Nas páginas de busca, o admin poderá, pela barra de busca, procurar produtos/usuários previamente cadastrados e ser redirecionado às respectivas páginas de edição. Nas páginas de edição, o admin poderá editar propriedades dos produtos/usuários (como título, quantidade em estoque, foto e descrição / nome, telefone, privilégio de administrador, etc) e removê-los. Por fim, nas páginas de criação, o admin poderá cadastrar novos produtos/usuários. 
 
 #### Diagrama de Navegação
-![Diagrama de Navegação](https://raw.github.com/fcolona/TrabalhoWeb/main/assets/navigation-diagram.svg)
+![Diagrama de Navegação](https://raw.github.com/fcolona/TrabalhoWeb/main/figma-mockups/navigation-diagram.svg)
 
 
 ### Comentários Sobre o Código

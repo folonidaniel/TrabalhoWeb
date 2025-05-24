@@ -1,0 +1,15 @@
+{
+    "id": 10,
+    "title": "Skyrim",
+    "description": "Viva como quiser no vasto mundo aberto de Skyrim. Seja um guerreiro, mago ou ladrão enquanto enfrenta dragões e descobre seu destino como o Dovahkiin.",
+    "images": [
+        "/game-imgs/skyrim.jpg"
+    ],
+    "categories": [
+        "RPG",
+        "Mundo Aberto",
+        "Aventura"
+    ],
+    "price": 120.00,
+    "quantityInStock": 13
+}
