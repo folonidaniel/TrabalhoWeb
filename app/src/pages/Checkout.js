@@ -5,7 +5,7 @@ import SuccessPopup from "../components/SuccessPopup"
 import { delay, readCart, readLoggedUser, updateCart, updateStock } from "../Utils"
 import Loading from "../components/Loading"
 
-export function Checkout() {
+export default function Checkout() {
     const [cart, setCart] = useState(null)
     const [loggedUser, setLoggedUser] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
@@ -170,6 +170,7 @@ export function Checkout() {
                                     <div className={styles.formGroup}>
                                         <label className={styles.label} htmlFor="name">Nome no Cartão</label>
                                         <input
+                                            id="name"
                                             type="text"
                                             defaultValue={cardInfo !== null ? cardInfo.name : ""}
                                             className={styles.input}
@@ -180,6 +181,7 @@ export function Checkout() {
                                     <div className={styles.formGroup}>
                                         <label className={styles.label} htmlFor="number">Número do Cartão</label>
                                         <input
+                                            id="number"
                                             type="text"
                                             className={styles.input}
                                             defaultValue={cardInfo !== null ? cardInfo.number : ""}
@@ -192,6 +194,7 @@ export function Checkout() {
                                         <div className={styles.formGroup}>
                                             <label className={styles.label} htmlFor="expDate">Data de Expiração</label>
                                             <input
+                                                id="expDate"
                                                 type="text"
                                                 className={styles.input}
                                                 defaultValue={cardInfo !== null ? cardInfo.expDate : ""}
@@ -203,6 +206,7 @@ export function Checkout() {
                                         <div className={styles.formGroup}>
                                             <label className={styles.label} htmlFor="cvv">CVV</label>
                                             <input
+                                                id="cvv"
                                                 type="text"
                                                 className={styles.input}
                                                 defaultValue={cardInfo !== null ? cardInfo.cvv : ""}

@@ -7,7 +7,7 @@ import styles from "../styles/Cart.module.css"
 import { delay, readCart, updateCart } from "../Utils"
 import FullPageError from "../components/FullPageError"
 
-export function Cart() {
+export default function Cart() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [state, setState] = useState(null)
@@ -86,9 +86,9 @@ export function Cart() {
                                             -
                                         </button>
                                     ) : (
-                                       <img className={styles.trash} src="/icons/trash-solid.svg" onClick={() => handleQuantity(0, product.id)}></img>
+                                       <img data-testid="remove" className={styles.trash} src="/icons/trash-solid.svg" onClick={() => handleQuantity(0, product.id)}></img>
                                     )}
-                                    <span className={styles.quantityDisplay}>{product.quantity}</span>
+                                    <span data-testid="quantity" className={styles.quantityDisplay}>{product.quantity}</span>
                         
                                    {product.quantity != product.quantityInStock ? (
                                         <button
@@ -113,7 +113,7 @@ export function Cart() {
 
                 <hr className={styles.divisionLine} />
                 <div className={styles.totalContainer}>
-                    <span className={styles.total}>
+                    <span data-testid="totalPrice" className={styles.total}>
                         Total: {state.reduce((acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
                     </span>
                     <a href="/checkout">
