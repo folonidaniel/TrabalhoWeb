@@ -1,0 +1,295 @@
+/* General page background */
+.pageBg {
+  min-height: 100vh;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #002c87;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  border: 3px solid #002c87;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  position: relative;
+}
+.logoDot, .logoLine1, .logoLine2 {
+  position: absolute;
+  background: #002c87;
+}
+.logoDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  left: 10px;
+  top: 12px;
+}
+.logoDot2 {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  right: 10px;
+  top: 12px;
+}
+.logoLine1 {
+  width: 16px;
+  height: 5px;
+  left: 12px;
+  top: 17px;
+  border-radius: 3px;
+}
+.logoLine2 {
+  width: 5px;
+  height: 16px;
+  left: 18px;
+  top: 12px;
+  border-radius: 3px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+  font-size: 0.97rem;
+}
+.menuItem {
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+}
+
+/* SEARCH BAR */
+.searchBarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 35px;
+}
+.searchBarWrapper {
+  background: #f3f5f8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  padding: 3px 22px 3px 12px;
+  width: 440px;
+  max-width: 92vw;
+}
+.searchInput {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 17px;
+  color: #002c87;
+  width: 100%;
+  padding: 9px 6px 9px 0;
+}
+.searchIcon {
+  color: #002c87;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* FORM CARD */
+.card {
+  background: #032882;
+  border-radius: 18px;
+  margin: 0 auto;
+  width: 540px;
+  max-width: 98vw;
+  min-height: 480px;
+  box-shadow: 0 4px 32px rgba(2, 30, 80, 0.13);
+  display: flex;
+  padding: 42px 28px 38px 28px;
+  align-items: flex-start;
+}
+.form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-start;
+  gap: 32px;
+}
+.cardLeft {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+.plusBox {
+  width: 150px;
+  height: 150px;
+  background: #fff;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+.plusIcon {
+  color: #032882;
+  display: block;
+}
+
+.cardRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.input {
+  border: 1.5px solid #09dafb;
+  border-radius: 7px;
+  padding: 7px 15px;
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+  color: #ffffff;
+  background: transparent;
+  outline: none;
+  width: 252px;
+  transition: border-color 0.16s;
+}
+.input::placeholder  { color: #bccfe8; }
+
+.inputSmall {
+  border: 1.5px solid #09dafb;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.97rem;
+  width: 160px;
+  margin-bottom: 11px;
+  color: #ffffff;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.16s;
+}
+.inputSmall::placeholder  { color: #bccfe8; }
+
+.textarea {
+  width: 390px;
+  height: 110px;
+  resize: none;
+  border: 1.5px solid #09dafb;
+  border-radius: 5px;
+  padding: 7px 14px;
+  font-size: 1.02rem;
+  color: #fff;
+  background: transparent;
+  outline: none;
+  margin-bottom: 9px;
+}
+.textarea::placeholder {
+  color: #bccfe8;
+}
+
+/* Control row (plus and submit buttons) */
+.controlsRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 19px;
+  margin-top: 2px;
+}
+.addBtn {
+  background: #00f1ff;
+  color: #032882;
+  border: none;
+  border-radius: 3px;
+  width: 34px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.12rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 8px;
+  box-shadow: 0 2px 8px #00f2ff12;
+  transition: background 0.17s;
+  padding: 0;
+}
+.addBtn:hover { background: #03cfec; }
+.addBtn svg {
+  color: #032882;
+  width: 24px;
+  height: 24px;
+}
+.submitBtn {
+  background: #00e5ff;
+  color: #032882;
+  border: none;
+  font-size: 1.12rem;
+  padding: 7px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 27px;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 3px 13px #00e5ff50;
+}
+.submitBtn:hover {
+  background: #04b1ce;
+  color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 750px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 7vw 33px 7vw;
+    width: 97vw;
+    min-width: 0;
+  }
+  .form {
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
+  .cardLeft {
+    margin: 0 0 18px 0;
+  }
+  .cardRight {
+    width: 100%;
+    align-items: center;
+  }
+  .input, .inputSmall, .textarea {
+    width: 95%;
+    min-width: 0;
+  }
+  .controlsRow {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
