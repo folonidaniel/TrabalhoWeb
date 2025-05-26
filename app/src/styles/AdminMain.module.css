@@ -1,0 +1,121 @@
+.pageBg {
+  min-height: 100vh;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.navbar {
+  background: #002B86;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 46px;
+}
+
+.logoCircle {
+  width: 42px;
+  height: 28px;
+  background: #fff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  padding-left: 6px;
+  box-sizing: border-box;
+  margin-top: 3px;
+}
+.logoPlusH {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 10px;
+  height: 3px;
+  background: #002B86;
+  border-radius: 3px;
+}
+.logoPlusV {
+  position: absolute;
+  left: 16.5px;
+  top: 8px;
+  width: 3px;
+  height: 10px;
+  background: #002B86;
+  border-radius: 3px;
+}
+.logoDot {
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  background: #002B86;
+  border-radius: 50%;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.menuItem {
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: inherit;
+  letter-spacing: 0.01rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 7px;
+}
+.menuItem:focus {
+  outline: none;
+}
+.menuArrow {
+  font-size: 0.76em;
+  margin-left: 3px;
+  line-height: 1;
+  opacity: 0.8;
+  font-family: serif;
+}
+
+.centered {
+  width: 100vw;
+  height: calc(100vh - 54px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.greeting {
+  font-size: 3rem;
+  color: #222;
+  font-weight: 400;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .greeting {
+    font-size: 1.5rem;
+  }
+  .logoCircle {
+    width: 36px;
+    height: 24px;
+  }
+  .navbar {
+    padding: 0 9px;
+  }
+  .menu {
+    gap: 14px;
+  }
+}

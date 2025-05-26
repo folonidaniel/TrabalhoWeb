@@ -1,3 +1,4 @@
+// Importação de estilos, hooks e componentes auxiliares
 import styles from "../styles/Checkout.module.css"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
@@ -5,24 +6,29 @@ import SuccessPopup from "../components/SuccessPopup"
 import { delay, readCart, readLoggedUser, updateCart, updateStock } from "../Utils"
 import Loading from "../components/Loading"
 
-export default function Checkout() {
-    const [cart, setCart] = useState(null)
-    const [loggedUser, setLoggedUser] = useState(null)
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState(null)
-    const [step, setStep] = useState("address")
-    const [success, setSuccess] = useState(false)
-    const [cardInfo, setCardInfo] = useState(null)
-    const navigate = useNavigate()
+// Define o componente funcional Checkout
+export function Checkout() {
+    //Define diversos estados para gerenciar:
+    const [cart, setCart] = useState(null)//o carrinho
+    const [loggedUser, setLoggedUser] = useState(null)//usuário logado
+    const [isLoaded, setIsLoaded] = useState(false);//estado de carregamento
+    const [error, setError] = useState(null)//erros
+    const [step, setStep] = useState("address")//etapa atual do checkout
+    const [success, setSuccess] = useState(false)//sucesso da operação
+    const [cardInfo, setCardInfo] = useState(null)//informações do cartão de crédito
+    const navigate = useNavigate()//Permite navegar entre rotas programaticamente.
 
+    //Hook useEffect que executa ao montar o componente: busca dados do carrinho.
     useEffect(() => {
         const fetchData = async () => {
             let fetchedCart = await readCart()
+            //Se o carrinho for nulo ou vazio, redireciona para a home.
             if (fetchedCart == null) fetchedCart = []
             if (fetchedCart.length === 0) {
                 navigate("/")
                 return
             }
+            //Define os estados cart e loggedUser. Se o usuário não estiver logado, redireciona para /login
             setCart(fetchedCart)
 
             let fetchedUser = await readLoggedUser()
@@ -33,6 +39,7 @@ export default function Checkout() {
             setLoggedUser(fetchedUser)
             setIsLoaded(true)
         }
+        //Trata erro ao buscar dados, exibindo mensagem de erro apropriada.
         fetchData().catch(async () => {
             setIsLoaded(true)
             const error = {
@@ -43,30 +50,35 @@ export default function Checkout() {
         })
     }, [])
 
+    //Valida formato de número de cartão (XXXX XXXX XXXX XXXX).
     function validateCardNumber(cardNumber) {
         const regex = /^\d{4} \d{4} \d{4} \d{4}/
         return regex.test(cardNumber)
     }
-
+    //Valida formato da data de expiração (MM/AAAA).
     function validateExpDate(expDate) {
         const regex = /^\d{2}\/\d{4}/
         return regex.test(expDate)
     }
-
+    //Valida formato do CVV (3 dígitos).
     function validateCVV(cvv) {
         const regex = /^\d{3}$/
         return regex.test(cvv)
     }
 
+    // Obtém inputs diretamente do DOM
     function handlePaymentSection(event) {
         const inputs = document.getElementsByTagName("input")
         const nameElem = inputs[0]
         const numberElem = inputs[1]
         const expDateElem = inputs[2]
         const cvvElem = inputs[3]
+        //Obtém o atributo next do botão clicado para determinar a navegação ("back" ou "forward").
         const action = event.target.getAttribute("next")
 
+        //Flag para rastrear inputs inválidos.
         let hasInvalidInput = false
+        //Valida todos os inputs e aplica classe de erro (styles.invalidInput) se forem inválidos. Se houver erro, limpa as classes após 2 segundos e interrompe a função.
         if (nameElem.value.length <= 2) {
             nameElem.className = styles.invalidInput
             hasInvalidInput = true
@@ -92,16 +104,18 @@ export default function Checkout() {
             }, 2000)
             return;
         }
-
+        //Atualiza cardInfo com os dados inseridos.
         let newCardInfo = {}
         Array.from(inputs).forEach((input) => {
             newCardInfo[input.name] = input.value
         })
         setCardInfo(newCardInfo)
+        //Navega entre as etapas de pagamento e revisão.
         if (action === "back") setStep("address")
         else setStep("review")
     }
 
+    //Atualiza o estoque de cada produto do carrinho.
     async function handleSuccess() {
         cart.forEach( async (product) => {
             await updateStock(product, product.quantityInStock - product.quantity).catch(async () => {
@@ -113,7 +127,7 @@ export default function Checkout() {
                 setError(error)
             })
         })
-
+        //Limpa o carrinho após a compra.
         await updateCart([]).catch(async () => {
             setIsLoaded(true)
             const error = {
@@ -125,18 +139,19 @@ export default function Checkout() {
 
         if (error !== null) return;
 
+        //Mostra SuccessPopup e, após delay, redireciona para home.
         setSuccess(true)
 
         await delay(2500)
         navigate("/")
     }
-
+    //Enquanto dados são carregados, exibe componente de Loading
     if (!isLoaded) {
         return (
             <Loading />
         )
     }
-
+    //Caso a compra ainda não tenha sido concluída, renderiza as diferentes etapas do checkout.
     if (!success) {
         return (
             <>
@@ -147,6 +162,7 @@ export default function Checkout() {
 
                     <div className={styles.checkoutContent}>
                         <div className={styles.checkoutForm}>
+                            {/*Exibe endereço de entrega e opções para voltar ao carrinho ou avançar para pagamento. */}
                             {step === "address" && (
                                 <div className={styles.addressSection}>
                                     <h2 className={styles.h2}>Endereço de Entrega</h2>
@@ -163,6 +179,7 @@ export default function Checkout() {
                                     </div>
                                 </div>
                             )}
+                            {/*Formulário para inserir dados de pagamento com inputs e botões de navegação. */}
                             {step === "payment" && (
                                 <div className={styles.paymentSection}>
                                     <h2 className={styles.h2}>Informações de Pagamento</h2>
@@ -226,7 +243,7 @@ export default function Checkout() {
                                     </div>
                                 </div>
                             )}
-
+                            {/*Exibe resumo do endereço e informações de pagamento. Opções de voltar ou confirmar a compra. */}
                             {step === "review" && (
                                 <div className={styles.reviewSection}>
                                     <h2 className={styles.h2}>Revisar Compra</h2>
@@ -258,7 +275,7 @@ export default function Checkout() {
                                 </div>
                             )}
                         </div>
-
+                        {/*Mostra os itens no carrinho com imagens, quantidade e preços. */}
                         <div className={styles.orderSummary}>
                             <h2 className={styles.h2}>Resumo da Compra</h2>
 
@@ -276,6 +293,7 @@ export default function Checkout() {
                             </div>
 
                             <div className={styles.summaryDetails}>
+                                {/*Calcula e exibe o total da compra. */}
                                 <span>Total: R$ {cart.reduce((acc, product) => acc += product.quantity * product.price, 0).toFixed(2)}</span>
                             </div>
                         </div>
@@ -285,6 +303,7 @@ export default function Checkout() {
         )
     } else {
         return (
+            //Se a compra foi finalizada com sucesso, exibe popup de sucesso.
             <div className={styles.successPopupContainer}>
                 <SuccessPopup color="blue" title="Compra concluída com sucesso!" msg="Seu produto irá chegar em breve." />
             </div>
