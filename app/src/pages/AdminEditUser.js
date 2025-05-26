@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.edit.user.css";
+import styles from "../styles/AdminEditUser.module.css";
 import { useNavigate, useLocation, Link } from "react-router";
+import SearchBar from "../components/SearchBar";
 
 export function AdminEditUser() {
   return (
@@ -19,19 +20,7 @@ export function AdminEditUser() {
         </div>
       </nav>
 
-      {/* SEARCH BAR */}
-      <div className={styles.searchBarContainer}>
-        <div className={styles.searchBarWrapper}>
-          <Search className={styles.searchIcon} />
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder=""
-            aria-label="Pesquisar"
-            disabled
-          />
-        </div>
-      </div>
+      <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
 
       {/* MAIN CARD */}
       <div className={styles.card}>

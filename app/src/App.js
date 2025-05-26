@@ -1,12 +1,14 @@
+// Importa componentes necessários do React Router para gerenciar as rotas da aplicação.
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+// Importa as páginas que serão renderizadas em diferentes rotas
 import { Register } from "./pages/Register"
 import { Login } from "./pages/Login"
 import { ProductDetails } from "./pages/ProductDetails"
 import { Cart } from "./pages/Cart"
 import { AboutUs } from "./pages/AboutUs"
 import { Search } from "./pages/Search"
-import { MyAccount } from './pages/MyAccout';
+import { MyAccount } from './pages/MyAccount';
 import { Checkout } from './pages/Checkout';
 import { Main } from "./pages/Main";
 import {AdminCreateUser} from "./pages/AdminCreateUser";
@@ -17,8 +19,10 @@ import {AdminMain} from "./pages/AdminMain";
 import {AdminSearchProduct} from './pages/AdminSearchProduct';
 import {AdminSearchUsers} from './pages/AdminSearchUsers';
 
+// Função principal da aplicação React (chama as rotas)
 function App() {
   return (
+     // Envolve a aplicação com BrowserRouter, que permite o controle de navegação baseado na URL
     <BrowserRouter basename='/'>
       <Routes>
         <Route path="/" element={<Main/>}/>
@@ -42,4 +46,5 @@ function App() {
   );
 }
 
+//Exporta o componente App para ser usado em outros arquivos
 export default App;

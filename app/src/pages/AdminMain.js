@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.main.css";
+import styles from "../styles/AdminMain.module.css";
+
 
 export function AdminMain() {
   return (

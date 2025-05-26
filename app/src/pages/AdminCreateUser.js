@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.create.user.css";
+import styles from "../styles/AdminCreateUser.module.css";
 import { useNavigate, useLocation, Link } from "react-router";
+import SearchBar from "../components/SearchBar";
 
 export function AdminCreateUser () {
   const [form, setForm] = useState({
@@ -43,18 +44,7 @@ export function AdminCreateUser () {
         </div>
       </nav>
 
-      {/* SEARCH BAR */}
-      <div className={styles.searchBarContainer}>
-        <div className={styles.searchBarWrapper}>
-          <Search className={styles.searchIcon} />
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder=""
-            aria-label="Pesquisar"
-          />
-        </div>
-      </div>
+      <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
 
       {/* FORM CARD */}
       <div className={styles.card}>

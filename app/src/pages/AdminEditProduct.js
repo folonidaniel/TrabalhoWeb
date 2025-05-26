@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../styles/Admin.edit.product.css";
-import { Search } from "lucide-react";
+import styles from "../styles/AdminEditProduct.module.css";
+import SearchBar from "../components/SearchBar";
 
 export function AdminEditProduct()  {
   return (
@@ -20,24 +20,15 @@ export function AdminEditProduct()  {
         </div>
       </nav>
 
-      {/* SEARCH BAR */}
-      <div className={styles.searchBarContainer}>
-        <div className={styles.searchBarWrapper}>
-          <Search className={styles.searchIcon} />
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder=""
-            aria-label="Pesquisar"
-          />
-        </div>
-      </div>
+      <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
 
       {/* PRODUCT CARD */}
       <div className={styles.card}>
         <div className={styles.cardLeft}>
           {/* Image placeholder */}
-          <div className={styles.imagePlaceholder}></div>
+          <div className={styles.imagePlaceholder}>
+
+          </div>
         </div>
         <div className={styles.cardRight}>
           <input

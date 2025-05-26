@@ -1,22 +1,32 @@
+// Importação do CSS específico para o componente
 import styles from "../styles/Main.module.css";
+
+// Importação de componentes reutilizáveis
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 import Loading from "../components/Loading";
+
+// Importação de hooks do React
 import { useEffect, useState } from "react"
+
+// Importação de hook para navegação
 import { useNavigate } from "react-router"
+
+// Importação de utilitários personalizados
 import { CheckForMobile, delay } from "../Utils"
 
 export function Main() {
-  const navigate = useNavigate()
-  const [bannerIndex, setBannerIndex] = useState(0)
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [categories, setCategories] = useState([])
-  const [products, setProducts] = useState({})
-  const [counters, setCounters] = useState({})
-  const isOnMobile = CheckForMobile()
+  const navigate = useNavigate()// Hook para redirecionamento de páginas
+  const [bannerIndex, setBannerIndex] = useState(0)// Índice do banner atual
+  const [error, setError] = useState(null);// Estado de erro na requisição
+  const [isLoaded, setIsLoaded] = useState(false);// Controle de carregamento
+  const [categories, setCategories] = useState([])// Categorias de produtos
+  const [products, setProducts] = useState({})//Objeto com produtos categorizados.
+  const [counters, setCounters] = useState({})// controla a paginação de cada categoria
+  const isOnMobile = CheckForMobile()//Detecta se o usuário está em um dispositivo móvel.
 
+  //Lista as imagens do Banner
   const bannerImgs = [
     {
       id: 15,
@@ -32,6 +42,7 @@ export function Main() {
     }
   ]
 
+  //A cada 5 segundos, muda a imagem do banner
   useEffect(() => {
     const interval = setInterval(() => {
       setBannerIndex((i) => {
@@ -42,13 +53,14 @@ export function Main() {
     return () => clearInterval(interval)
   })
 
+//Faz um fetch para obter os produtos em formato json
   useEffect( () => {
       const fetchData = async () => {
         const response = await fetch("/mocks/main/all.json")
         const products = await response.json()
-        let initialCategories = []
-        let initialProducts = {}
-        let initialCounters = {}
+        let initialCategories = []//Cria lista de categorias
+        let initialProducts = {}//Organiza os produtos por categoria
+        let initialCounters = {}//Inicia o contador de paginação para cada categoria em 0
 
         products.forEach((product) => {
           product.categories.forEach((category) => {
@@ -64,7 +76,8 @@ export function Main() {
         setIsLoaded(true);
       }
       fetchData().catch(async () => {
-            setIsLoaded(true)
+            setIsLoaded(true)//Sinaliza o fim do carregamento
+            //Em caso de erro...
             const error = {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
@@ -72,24 +85,27 @@ export function Main() {
             setError(error)
         })
   }, [])
-
+//Executa a busca se o usuário apertar a tecla 'Enter' ou clicar.
+//Também redireciona para a área de busca
   function handleSearch(event) {
     if (event.key !== "Enter" && event.type !== "click") return
     navigate("/search", { state: event.target.value })
   }
 
+  //Decrementa contador da categoria, mostrando os produtos anteriores.
   function handlePrevious(event) {
     let newCounters = { ...counters }
     newCounters[event.target.getAttribute("category")]--
     setCounters(newCounters)
   }
 
+  //Incrementa contador da categoria, mostrando os próximos produtos.
   function handleNext(event) {
     let newCounters = { ...counters }
     newCounters[event.target.getAttribute("category")]++
     setCounters(newCounters)
   }
-  
+  //Enquanto não carrega os dados, mostra Navbar,loading e footer
   if(!isLoaded){
     return (
       <>
@@ -100,11 +116,13 @@ export function Main() {
     )
   }
 
+  
   return (
     <>
       <Navbar></Navbar>
       <div className={styles["center-containers"]}>
         <div id={styles["banner-container"]}>
+          {/* Exibe imagem atual do banner */}
           <a className={styles.aBanner} href={"/product/" + bannerImgs[bannerIndex].id}>
             <img
               id={styles["banner"]}
@@ -113,6 +131,7 @@ export function Main() {
             />
           </a>
           <div className={styles.circlesContainer}>
+             {/* Renderiza os indicadores circulares para mostrar qual banner está ativo */}
             {bannerImgs.map((item, i) => (
               <div key={i} className={styles.circlesContainer}>
                 <img
@@ -130,10 +149,13 @@ export function Main() {
         <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
       </div>
       <div className={styles.outerContainer}>
+        {/* Array de categorias. Map vai iterar sobre cada categoria */}
         {categories.map((category, i) => (
           <div key={i} className={styles.container}>
+            {/* Para cada categoria, será criada uma div */}
             <h3 className={styles["category-titles"]}>{category}</h3>
             <div className={styles["category"]}>
+              {/* Verifica se o usuário está num dispositivo mobile */}
               {!isOnMobile ? (
                 <>
                   {counters[category] !== 0 && (
@@ -148,6 +170,8 @@ export function Main() {
                   {
                     products[category].slice(counters[category] * 4, (counters[category] + 1) * 4).map((product, j) => (
                       <div key={j} className={styles["container-cover-arts"]}>
+                         {/* Products[category] pega todos os produtos dessa categoria*/}
+                         {/*Slice vai pegar um subconjunto de produtos*/ }
                         <a href={`/product/${product.id}`}>
                           <img
                             className={styles["cover-art"]}
@@ -173,6 +197,7 @@ export function Main() {
                 <>
                   {products[category].map((product, j) => (
                     <div key={j} className={styles["container-cover-arts"]}>
+                      {/*Cada produto é um div */}
                       <a href={`/product/${product.id}`}>
                         <img
                           className={styles["cover-art"]}

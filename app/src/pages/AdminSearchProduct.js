@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.search.product.css";
+import styles from "../styles/AdminSearchProduct.module.css";
+import SearchBar from "../components/SearchBar";
 
 export function AdminSearchProduct (){
   return (
@@ -35,16 +36,7 @@ export function AdminSearchProduct (){
         <div className={styles.content}>
           <h1 className={styles.title}>Produtos</h1>
           
-          <div className={styles.searchContainer}>
-            <div className={styles.searchWrapper}>
-              <span className={styles.searchIcon}>🔍</span>
-              <input 
-                type="text" 
-                placeholder="Buscar..." 
-                className={styles.searchInput}
-              />
-            </div>
-          </div>
+          <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
         </div>
       </main>
     </div>

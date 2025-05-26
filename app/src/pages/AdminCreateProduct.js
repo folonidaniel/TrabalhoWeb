@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.create.product.css";
+import styles from "../styles/AdminCreateProduct.module.css";
+import SearchBar from "../components/SearchBar";
 
 export function AdminCreateProduct(){
   const [form, setForm] = useState({
@@ -41,18 +42,7 @@ export function AdminCreateProduct(){
         </div>
       </nav>
 
-      {/* SEARCH BAR */}
-      <div className={styles.searchBarContainer}>
-        <div className={styles.searchBarWrapper}>
-          <Search className={styles.searchIcon} />
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder=""
-            aria-label="Pesquisar"
-          />
-        </div>
-      </div>
+      <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
 
       {/* FORM CARD */}
       <div className={styles.card}>
@@ -60,7 +50,7 @@ export function AdminCreateProduct(){
           {/* Left side: plus icon */}
           <div className={styles.cardLeft}>
             <div className={styles.plusBox}>
-              <Plus size={96} strokeWidth={3} className={styles.plusIcon} />
+              <img id={styles["plus-icon"]} src="/icons/plus-solid.svg" alt="Imagem_jogo" />
             </div>
           </div>
           {/* Right side: inputs */}
@@ -94,7 +84,7 @@ export function AdminCreateProduct(){
             />
             <div className={styles.controlsRow}>
               <button type="button" className={styles.addBtn}>
-                <Plus size={24} strokeWidth={3} />
+                <img  src="/icons/plus-solid.svg" alt="Adicionar_Categoria" />
               </button>
               <button type="submit" className={styles.submitBtn}>
                 Cadastrar

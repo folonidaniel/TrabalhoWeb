@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/Admin.search.users.css";
+import styles from "../styles/AdminSearchUsers.module.css";
+import SearchBar from "../components/SearchBar";
 
 export function AdminSearchUsers (){
   return (
@@ -35,16 +36,7 @@ export function AdminSearchUsers (){
         <div className={styles.content}>
           <h1 className={styles.title}>Usuários</h1>
           
-          <div className={styles.searchContainer}>
-            <div className={styles.searchWrapper}>
-              <span className={styles.searchIcon}>🔍</span>
-              <input 
-                type="text" 
-                placeholder="Buscar..." 
-                className={styles.searchInput}
-              />
-            </div>
-          </div>
+         <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
         </div>
       </main>
     </div>
