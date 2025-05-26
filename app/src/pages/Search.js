@@ -7,11 +7,13 @@ import { useLocation } from "react-router";
 // Importa componentes de navegação e busca
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
-
+import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import FullPageError from "../components/FullPageError"
 // Importa os estilos específicos deste componente
 import styles from "../styles/Search.module.css"
 
-export function Search(){
+export default function Search(){
     // Hook para acessar informações passadas pela navegação 
     const location = useLocation();
     
@@ -42,9 +44,6 @@ export function Search(){
         })
     }, [])// Executa apenas uma vez na montagem
 
-    if (error) return <div>Erro Interno</div> // Se houve erro, exibe mensagem de erro
-    else if (!isLoaded) return <div>Carregando...</div> // Se ainda não carregou, exibe mensagem de carregamento
-        
     function search(str, array){
         const newResults = []
         array.forEach( (item) => {
@@ -55,6 +54,20 @@ export function Search(){
     }
     //Função para lidar com mudanças no campo de busca:
     const handleChange = (event) => search(event.target.value, initialValues);
+
+    if(!isLoaded){
+        return (
+            <>
+                <Navbar/>
+                <Loading/>
+                <Footer/>
+            </>
+        )
+    } else if(error !== null){
+        return (
+            <FullPageError title={error.title} message={error.message}/>
+        )
+    }
 
     return (
         <main className={styles.main}>
@@ -80,6 +93,7 @@ export function Search(){
             ) : (
                 <></>
             )}
+            <Footer/>
         </main>
     )
 }

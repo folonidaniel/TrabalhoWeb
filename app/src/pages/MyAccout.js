@@ -10,11 +10,11 @@ import Loading from "../components/Loading"
 import FullPageError from "../components/FullPageError"
 
 // Componente funcional para a página de Minha Conta
-export function MyAccount() {
+export default function MyAccount() {
     const navigate = useNavigate() //Hook para redirecionamento
-
+    const [requestError, setRequestError] = useState(null);
+    const [validationError, setValidationError] = useState(null);
     // Estados para mensagens de erro, sucesso, usuário logado e carregamento
-    const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [loggedUser, setLoggedUser] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
@@ -30,14 +30,16 @@ export function MyAccount() {
             setLoggedUser(fetchedUser)// Atualiza estado com o usuário logado
             setIsLoaded(true)// Marca como carregado
         }
+
         // Executa e trata erro na requisição
-        fetchData().catch(async () => {
+        fetchData().catch(async (err) => {
+            console.log(err)
             setIsLoaded(true)
             const error = {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
     }, [])
 
@@ -77,11 +79,11 @@ export function MyAccount() {
 
         // Se houver input inválido, exibe erro e remove estilo após 2s
         if (hasInvalidInput) {
-            setError(errorMsg)
+            setValidationError(errorMsg)
             setTimeout(() => {
                 emailElem.className = styles.input
                 phoneElem.className = styles.input
-                setError(null)
+                setValidationError(null)
             }, 2000)
             return;
         }
@@ -93,7 +95,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
         if (users === null) users = []
 
@@ -110,7 +112,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
 
         // Atualiza a lista de usuários
@@ -124,7 +126,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
 
         // Mostra mensagem de sucesso temporária
@@ -142,10 +144,10 @@ export function MyAccount() {
                 <Loading/>
             </>
         )
-        // Em caso de erro, mostra tela de erro completa
-    } else if(error !== null){
+    // Em caso de erro, mostra tela de erro completa
+    } else if(requestError !== null){
         return (
-            <FullPageError title={error.title} message={error.message}/>
+            <FullPageError title={requestError.title} message={requestError.message}/>
         )
     }
 
@@ -160,8 +162,8 @@ export function MyAccount() {
                 ) : (
                     <></>
                 )}
-                {error !== null ? (
-                    <Error className="sus" message={error}/>
+                {validationError !== null ? (
+                    <Error className="sus" message={validationError}/>
                 ) : (
                     <></>
                 )}
@@ -169,12 +171,14 @@ export function MyAccount() {
                 <div className={styles.form}>
                     <label className={styles.label} htmlFor="name">Nome: </label>
                     <input
+                        id="name"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.name}
                         name="name" type="text" />
                     <label className={styles.label} htmlFor="address">Endereço: </label>
                     <input
+                        id="address"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.address}
@@ -182,19 +186,23 @@ export function MyAccount() {
                         type="text" />
                     <label className={styles.label} htmlFor="phone">Telefone: </label>
                     <input
+                        id="phone"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.phone}
                         name="phone"
                         type="tel" />
                     <label className={styles.label} htmlFor="email">Email: </label>
-                    <input className={styles.input}
+                    <input 
+                        id="email"
+                        className={styles.input}
                         required
                         defaultValue={loggedUser.email}
                         name="email"
                         type="text" />
                     <label className={styles.label} htmlFor="password">Senha: </label>
                     <input
+                        id="password"
                         className={styles.input}
                         name="password"
                         type="password" />

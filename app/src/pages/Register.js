@@ -3,8 +3,6 @@ import styles from "../styles/Register.module.css"
 
 // Importa hooks de navegação e localização de rota
 import { useNavigate, useLocation, Link } from "react-router-dom"
-
-// Importa hooks de navegação e localização de rota
 import { useState } from "react"
 
 // Importa componentes auxiliares para mensagens de sucesso e erro

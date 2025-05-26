@@ -127,7 +127,7 @@ export function Main() {
             <img
               id={styles["banner"]}
               src={bannerImgs[bannerIndex].path}
-              alt=""
+              alt="Banner"
             />
           </a>
           <div className={styles.circlesContainer}>
@@ -189,7 +189,7 @@ export function Main() {
                       src="/icons/greater-than-solid.svg"
                       category={category}
                       onClick={handleNext}
-                      alt="Voltar"
+                      alt="Próximo"
                     />
                   )}
                 </>

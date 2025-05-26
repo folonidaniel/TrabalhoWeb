@@ -104,10 +104,10 @@ export function Cart() {
                                             -
                                         </button>
                                     ) : (
-                                       <img className={styles.trash} src="/icons/trash-solid.svg" onClick={() => handleQuantity(0, product.id)}></img>
+                                       <img data-testid="remove" className={styles.trash} src="/icons/trash-solid.svg" onClick={() => handleQuantity(0, product.id)}></img>
                                     )}
                                      {/* Se a quantidade for menor que o estoque, permite aumentar */}
-                                    <span className={styles.quantityDisplay}>{product.quantity}</span>
+                                    <span data-testid="quantity" className={styles.quantityDisplay}>{product.quantity}</span>
                         
                                    {product.quantity != product.quantityInStock ? (
                                         <button
@@ -132,7 +132,7 @@ export function Cart() {
                 {/* Mostra o total da compra e o botão para continuar */}
                 <hr className={styles.divisionLine} />
                 <div className={styles.totalContainer}>
-                    <span className={styles.total}>
+                    <span data-testid="totalPrice" className={styles.total}>
                         Total: {state.reduce((acc, product) => acc += product.quantity * product.price, 0).toFixed(2)} R$
                     </span>
                     <a href="/checkout">

@@ -80,8 +80,8 @@ export function Login() {
 
   return (
     <>
-      <form onSubmit={handleLogin} className={styles.main}>
-        {/* Formulário com evento de submit atrelado ao handleLogin */}
+      {/* Formulário com evento de submit atrelado ao handleLogin */}
+      <form aria-label="form" onSubmit={handleLogin} className={styles.main}>
         <section id={styles["logo_class"]}>
           <div className={styles.logo}>
             <a href="/">
@@ -107,6 +107,7 @@ export function Login() {
             <input
               className={styles.input}
               required
+              name="email"
               type="text"
               placeholder="Email:"
             />
@@ -115,6 +116,7 @@ export function Login() {
             <input
               className={styles.input}
               required
+              name="password"
               type="password"
               placeholder="Senha:"
             />

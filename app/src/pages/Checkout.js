@@ -187,6 +187,7 @@ export function Checkout() {
                                     <div className={styles.formGroup}>
                                         <label className={styles.label} htmlFor="name">Nome no Cartão</label>
                                         <input
+                                            id="name"
                                             type="text"
                                             defaultValue={cardInfo !== null ? cardInfo.name : ""}
                                             className={styles.input}
@@ -197,6 +198,7 @@ export function Checkout() {
                                     <div className={styles.formGroup}>
                                         <label className={styles.label} htmlFor="number">Número do Cartão</label>
                                         <input
+                                            id="number"
                                             type="text"
                                             className={styles.input}
                                             defaultValue={cardInfo !== null ? cardInfo.number : ""}
@@ -209,6 +211,7 @@ export function Checkout() {
                                         <div className={styles.formGroup}>
                                             <label className={styles.label} htmlFor="expDate">Data de Expiração</label>
                                             <input
+                                                id="expDate"
                                                 type="text"
                                                 className={styles.input}
                                                 defaultValue={cardInfo !== null ? cardInfo.expDate : ""}
@@ -220,6 +223,7 @@ export function Checkout() {
                                         <div className={styles.formGroup}>
                                             <label className={styles.label} htmlFor="cvv">CVV</label>
                                             <input
+                                                id="cvv"
                                                 type="text"
                                                 className={styles.input}
                                                 defaultValue={cardInfo !== null ? cardInfo.cvv : ""}
