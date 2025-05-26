@@ -1,12 +1,12 @@
 import styles from "../styles/Register.module.css"
-import { useNavigate, useLocation, Link } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router"
 import { useState } from "react"
 import SucessPopup from "../components/SuccessPopup"
 import Error from "../components/Error"
 import { isValidEmail, isValidPhone, readUsers, updateUsers } from "../Utils"
 import FullPageError from "../components/FullPageError"
 
-export function Register() {
+export default function Register() {
   const navigate = useNavigate()
   const location = useLocation()
   const [validationError, setValidationError] = useState(null);

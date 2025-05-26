@@ -4,7 +4,7 @@ import styles from "../styles/Login.module.css";
 import { readUsers, updateLoggedUser } from "../Utils";
 import FullPageError from "../components/FullPageError";
 
-export function Login() {
+export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const [validationError, setValidationError] = useState(null);
@@ -61,7 +61,7 @@ export function Login() {
 
   return (
     <>
-      <form onSubmit={handleLogin} className={styles.main}>
+      <form aria-label="form" onSubmit={ handleLogin } className={styles.main}>
         <section id={styles["logo_class"]}>
           <div className={styles.logo}>
             <a href="/">
@@ -86,6 +86,7 @@ export function Login() {
             <input
               className={styles.input}
               required
+              name="email"
               type="text"
               placeholder="Email:"
             />
@@ -94,6 +95,7 @@ export function Login() {
             <input
               className={styles.input}
               required
+              name="password"
               type="password"
               placeholder="Senha:"
             />

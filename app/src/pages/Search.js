@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
+import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import FullPageError from "../components/FullPageError"
 import styles from "../styles/Search.module.css"
 
-export function Search(){
+export default function Search(){
     const location = useLocation();
     
     const [error, setError] = useState(null);
@@ -34,9 +37,6 @@ export function Search(){
         })
     }, [])
 
-    if (error) return <div>Erro Interno</div>
-    else if (!isLoaded) return <div>Carregando...</div>
-        
     function search(str, array){
         const newResults = []
         array.forEach( (item) => {
@@ -46,6 +46,20 @@ export function Search(){
         setResults(newResults)
     }
     const handleChange = (event) => search(event.target.value, initialValues);
+
+    if(!isLoaded){
+        return (
+            <>
+                <Navbar/>
+                <Loading/>
+                <Footer/>
+            </>
+        )
+    } else if(error !== null){
+        return (
+            <FullPageError title={error.title} message={error.message}/>
+        )
+    }
 
     return (
         <main className={styles.main}>
@@ -68,6 +82,7 @@ export function Search(){
             ) : (
                 <></>
             )}
+            <Footer/>
         </main>
     )
 }

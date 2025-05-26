@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar"
 import styles from "../styles/AboutUs.module.css"
 
-export function AboutUs(){
+export default function AboutUs(){
     return (
         <>
             <Navbar></Navbar>

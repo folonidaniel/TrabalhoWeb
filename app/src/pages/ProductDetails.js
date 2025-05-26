@@ -7,7 +7,7 @@ import { readLoggedUser, readCart, updateCart } from "../Utils"
 import Loading from "../components/Loading";
 import FullPageError from "../components/FullPageError";
 
-export function ProductDetails() {
+export default function ProductDetails() {
     const params = useParams();
 
     const [product, setProduct] = useState([]);

@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Register } from "./pages/Register"
-import { Login } from "./pages/Login"
-import { ProductDetails } from "./pages/ProductDetails"
-import { Cart } from "./pages/Cart"
-import { AboutUs } from "./pages/AboutUs"
-import { Search } from "./pages/Search"
-import { MyAccount } from './pages/MyAccout';
-import { Checkout } from './pages/Checkout';
-import { Main } from "./pages/Main"
+import Register from "./pages/Register"
+import Login from "./pages/Login"
+import ProductDetails from "./pages/ProductDetails"
+import Cart from "./pages/Cart"
+import AboutUs from "./pages/AboutUs"
+import Search from "./pages/Search"
+import MyAccount from './pages/MyAccout';
+import Checkout from './pages/Checkout';
+import Main from "./pages/Main"
 
 function App() {
   return (

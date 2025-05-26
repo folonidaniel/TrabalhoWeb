@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { CheckForMobile, delay } from "../Utils"
 
-export function Main() {
+export default function Main() {
   const navigate = useNavigate()
   const [bannerIndex, setBannerIndex] = useState(0)
   const [error, setError] = useState(null);
@@ -109,7 +109,7 @@ export function Main() {
             <img
               id={styles["banner"]}
               src={bannerImgs[bannerIndex].path}
-              alt=""
+              alt="Banner"
             />
           </a>
           <div className={styles.circlesContainer}>
@@ -165,7 +165,7 @@ export function Main() {
                       src="/icons/greater-than-solid.svg"
                       category={category}
                       onClick={handleNext}
-                      alt="Voltar"
+                      alt="Próximo"
                     />
                   )}
                 </>

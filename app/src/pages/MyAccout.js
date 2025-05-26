@@ -8,9 +8,10 @@ import { readLoggedUser, isValidEmail, isValidPhone, deleteLoggedUser, readUsers
 import Loading from "../components/Loading"
 import FullPageError from "../components/FullPageError"
 
-export function MyAccount() {
+export default function MyAccount() {
     const navigate = useNavigate()
-    const [error, setError] = useState(null);
+    const [requestError, setRequestError] = useState(null);
+    const [validationError, setValidationError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [loggedUser, setLoggedUser] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false);
@@ -25,13 +26,14 @@ export function MyAccount() {
             setLoggedUser(fetchedUser)
             setIsLoaded(true)
         }
-        fetchData().catch(async () => {
+        fetchData().catch(async (err) => {
+            console.log(err)
             setIsLoaded(true)
             const error = {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
     }, [])
 
@@ -62,11 +64,11 @@ export function MyAccount() {
             hasInvalidInput = true
         }
         if (hasInvalidInput) {
-            setError(errorMsg)
+            setValidationError(errorMsg)
             setTimeout(() => {
                 emailElem.className = styles.input
                 phoneElem.className = styles.input
-                setError(null)
+                setValidationError(null)
             }, 2000)
             return;
         }
@@ -78,7 +80,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
         if (users === null) users = []
 
@@ -93,7 +95,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
 
         let updatedUsers = users.map((user) => {
@@ -106,7 +108,7 @@ export function MyAccount() {
                 title: "Erro interno do servidor.",
                 message: "Por favor, tente novamente."
             }
-            setError(error)
+            setRequestError(error)
         })
 
         setSuccess("Dados da conta atualizados com sucesso!")
@@ -122,11 +124,12 @@ export function MyAccount() {
                 <Loading/>
             </>
         )
-    } else if(error !== null){
+    } else if(requestError !== null){
         return (
-            <FullPageError title={error.title} message={error.message}/>
+            <FullPageError title={requestError.title} message={requestError.message}/>
         )
     }
+
 
     return (
         <>
@@ -138,20 +141,22 @@ export function MyAccount() {
                 ) : (
                     <></>
                 )}
-                {error !== null ? (
-                    <Error className="sus" message={error}/>
+                {validationError !== null ? (
+                    <Error className="sus" message={validationError}/>
                 ) : (
                     <></>
                 )}
                 <div className={styles.form}>
                     <label className={styles.label} htmlFor="name">Nome: </label>
                     <input
+                        id="name"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.name}
                         name="name" type="text" />
                     <label className={styles.label} htmlFor="address">Endereço: </label>
                     <input
+                        id="address"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.address}
@@ -159,19 +164,23 @@ export function MyAccount() {
                         type="text" />
                     <label className={styles.label} htmlFor="phone">Telefone: </label>
                     <input
+                        id="phone"
                         className={styles.input}
                         required
                         defaultValue={loggedUser.phone}
                         name="phone"
                         type="tel" />
                     <label className={styles.label} htmlFor="email">Email: </label>
-                    <input className={styles.input}
+                    <input 
+                        id="email"
+                        className={styles.input}
                         required
                         defaultValue={loggedUser.email}
                         name="email"
                         type="text" />
                     <label className={styles.label} htmlFor="password">Senha: </label>
                     <input
+                        id="password"
                         className={styles.input}
                         name="password"
                         type="password" />
