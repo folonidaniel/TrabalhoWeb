@@ -6,10 +6,10 @@ Daniel Mistieri Foloni - NUSP 15446899 </br>
 ### Requisitos
 Além dos requisitos pré-estabelecidos, o projeto inclui os seguintes novos requisitos:
 - Os registros de produtos incluem os gêneros de jogos aos quais eles pertencem.
-- Cada registro de produto pode estar relacionado a múltiplas fotos.
 - Filtragem por gênero de jogos.
 - Usuários comuns (não administradores) também são capazes de alterar suas informações de conta.
 - Usuários são capazes de comprar um produto diretamente (sem adicioná-lo no carrinho).
+
 ### Descrição do Projeto
 O projeto se trata de um trabalho da disciplina SCC0219 - Introdução ao Desenvolvimento Web do Instituto de Ciências Matemáticas e de Computação (ICMC) da Universidade de São Paulo (USP). Nele foi requisitado que desenvolvêssemos um e-commerce de nossa escolha. Assim, decidimos elaborar uma loja online de jogos físicos que inclua todo o processo de um e-commerce, desde a criação da conta até a finalização da compra. Esta é a primeira entrega do trabalho, em que fizemos o mockup das páginas web (algumas no Figma e outras em HTML e CSS). Desse modo, conforme as entregas ocorram, esse repositório será atualizado.
 
@@ -25,19 +25,43 @@ Na página principal do administrador, ele poderá, através da navbar, acessar 
 
 ### Comentários Sobre o Código
 Estrutura de Pastas:
-- views: arquivos HTML
-- styles: arquivos CSS
-- assets: arquivos de imagem 
-- assets/figma-mockups: imagens dos mockups (desktop e mobile) desenvolvidos no Figma
-- assets/game-imgs: imagens de capa e de banner dos jogos cadastrados (créditos dados nas páginas em que aparecem)
-- assets/icons: ícones do FontAwesome em formato SVG
+- app: arquivos do frontend em React
+- app/public: arquivos de imagem e mocks que são utilizados por vários arquivos
+- app/src: arquivos HTML, CSS e Javascript de páginas, componentes e testes
+- app/src/componenents: components React que são utilizados por várias páginas
+- app/src/pages: páginas da aplicação
+- app/src/styles: estilos das páginas
+- app/src/tests: testes unitários
+- app/src/App.js: rotas da aplicação
+- app/src/Utils.js: funções que são utilizadas por vários arquivos
+
+Para que fosse possível desenvolver o frontend antes do backend, foram utilizadas duas estratégias de mock para simular o futuro retorno do servidor. Assim, como já foi mencionado na seção de estrutura de pasta, há arquivos json com dados de produtos que são consumidos utilizando o fetch assíncrono do Javascript (por esse motivo, ainda não é possível fazer com que as alterações nos produtos persistam). Além disso, para os dados dos usuários dos produtos do carrinho foi utilizado o sessionStorage que é consumido de forma assíncrona por meio de funções exportadas pelo arquivo Utils.js. Desse modo, quando a aplicação backend estiver pronta será apenas necessário trocar o parâmetro do fetch e alterar as chamadas ao sessionStorage para chamadas ao servidor.
 
 ### Plano de Teste
+Para as páginas do usuário, foram escritos 30 testes unitários utilizando o framework Jest (padrão do React) em que as ações do usuário são simuladas e seus efeitos na interface comparados com os efeitos esperados. Nesse sentido, há 8 conjunto de testes (um para cada página acessível por um usuário comum) e entre 3 a 4 testes por conjunto. 
+
+Para as páginas do administrador, os testes foram realizados empiricamente, também simulando as ações do utilizador do sistema e analisando os efeitos na interface.
 
 ### Resultado dos Testes
+Os resultados obtidos foram positivos.
+![Diagrama de Navegação](https://raw.github.com/fcolona/TrabalhoWeb/main/tests-results.png)
 
 ### Procedimentos de Build
+#### Principal
+- Navegue até a pasta do frontend
+    - ```cd app/src```
+- Instale as dependências
+    - ```npm install```
+- Rode o comando de inicialização
+    - ```npm start```
+- Acesse seu navegador em ```http://localhost:3000```
+#### Teste
+- Navegue até a pasta do frontend
+    - ```cd app/src```
+- Rode o comando de teste e aguarde
+    - ```npm test```
 
 ### Problemas
 
 ### Comentários
+Como ainda não há um sistema de autenticação/autorização, devido a falta de backend, a página inicial do administrador deve ser acessada por meio da URL. No futuro, fazer login como administrador o redirecionará automaticamente a essa página.

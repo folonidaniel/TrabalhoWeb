@@ -107,6 +107,7 @@ export default function AdminEditProduct() {
       setProduct(newProduct)
       setTimeout( () => {
         setSuccess(false)
+        navigate("/search-products-admin")
       }, 1500)
   }
 

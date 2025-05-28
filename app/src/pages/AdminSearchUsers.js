@@ -19,13 +19,14 @@ export default function AdminSearchUsers() {
   const [error, setError] = useState(null);// Armazena informações de erro, se houver
   const [isLoaded, setIsLoaded] = useState(false); // Indica se os dados foram carregados
   const [results, setResults] = useState([])// Armazena os resultados da busca
-  const [initialValues, setInitialValues] = useState([])// Armazena todos os produtos disponíveis
+  const [initialValues, setInitialValues] = useState([])// Armazena todos os usuários disponíveis
   const [initialSearch, setInitialSearch] = useState(location.state)// Recebe o valor inicial de busca via navegação
   useEffect(() => {
     const fetchData = async () => {
-      const users = await readUsers()// Faz requisição local para obter todos os produtos
-      setInitialValues(users) // Salva todos os produtos no estado
-      setResults(users)// Inicialmente, exibe todos os produtos
+      let users = await readUsers()// Faz requisição local para obter todos os usuários
+      if(users === null) users = []
+      setInitialValues(users) // Salva todos os usuários no estado
+      setResults(users)// Inicialmente, exibe todos os usuários
       setIsLoaded(true);// Marca como carregado
       if (initialSearch !== null) {
         search(initialSearch, users)// Reseta o valor após a busca inicial

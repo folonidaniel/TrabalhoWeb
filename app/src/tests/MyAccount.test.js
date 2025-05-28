@@ -1,7 +1,7 @@
 import React from "react";
 import { act, fireEvent, queryByText, render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router";
-import MyAccout from "../pages/MyAccout";
+import MyAccount from "../pages/MyAccount";
 
 // Mock dependencies
 jest.mock("../components/Navbar", () => () => <div>Navbar</div>)
@@ -36,7 +36,7 @@ function renderPage(){
     return  render(
       <MemoryRouter initialEntries={[{ pathname: "/my-account" }]}>
         <Routes>
-          <Route path="/my-account" element={<MyAccout/>} />
+          <Route path="/my-account" element={<MyAccount/>} />
         </Routes>
       </MemoryRouter>
     )
