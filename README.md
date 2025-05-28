@@ -44,6 +44,7 @@ Para as páginas do administrador, os testes foram realizados empiricamente, tam
 
 ### Resultado dos Testes
 Os resultados obtidos foram positivos.
+
 ![Diagrama de Navegação](https://raw.github.com/fcolona/TrabalhoWeb/main/tests-results.png)
 
 ### Procedimentos de Build
