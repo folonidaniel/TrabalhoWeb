@@ -1,3 +1,4 @@
+import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import styles from "../styles/AboutUs.module.css"
 
@@ -12,6 +13,7 @@ export default function AboutUs(){
                 </p>
                 <img className={styles.logoIcon} src="/icons/gamepad-solid-blue.svg" alt="Logo"/>
             </main>
+            <Footer/>
         </>
     )
 }

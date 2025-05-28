@@ -1,19 +1,15 @@
 // Importa funções de navegação e link do React Router
 import { useNavigate, useLocation, Link } from "react-router";
-
 // Importa hook de estado do React
 import { useState } from "react";
-
 // Importa estilos específicos desse componente usando CSS Modules
 import styles from "../styles/Login.module.css";
-
 // Importa funções utilitárias para leitura e atualização de usuários
 import { readUsers, updateLoggedUser } from "../Utils";
-
 // Importa componente de erro que ocupa a tela inteira
 import FullPageError from "../components/FullPageError";
 
-export function Login() {
+export default function Login() {
   const navigate = useNavigate();// Hook para navegar entre páginas
   const location = useLocation();// Hook para acessar informações da rota atual
   const [validationError, setValidationError] = useState(null);// Estado para erros de validação (ex: email inválido)
@@ -72,8 +68,10 @@ export function Login() {
     })
 
     // Após login bem-sucedido, redireciona
-    if (location.state === null) navigate("/");
-    else navigate(location.state);// Se veio de outra página, retorna para ela
+    if(location.state !== null) navigate(location.state)// Se veio de outra página, retorna para ela
+
+    if (userFound.isAdmin) navigate("/main-admin")
+    else navigate("/")
   }
    // Se houve erro de requisição, exibe o componente de erro em tela cheia
   if(requestError != null) return (<FullPageError title={requestError.title} message={requestError.message}/>)

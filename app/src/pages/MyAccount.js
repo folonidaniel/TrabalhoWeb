@@ -8,6 +8,7 @@ import Success from "../components/Success"
 import { readLoggedUser, isValidEmail, isValidPhone, deleteLoggedUser, readUsers, updateLoggedUser, updateUsers } from "../Utils"
 import Loading from "../components/Loading"
 import FullPageError from "../components/FullPageError"
+import Footer from "../components/Footer"
 
 // Componente funcional para a página de Minha Conta
 export default function MyAccount() {
@@ -220,6 +221,7 @@ export default function MyAccount() {
                     </div>
                 </div>
             </main>
+            <Footer/>
         </>
     )
 }

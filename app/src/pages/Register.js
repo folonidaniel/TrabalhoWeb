@@ -1,33 +1,25 @@
 // Importa os estilos específicos do componente Register
 import styles from "../styles/Register.module.css"
-
 // Importa hooks de navegação e localização de rota
-import { useNavigate, useLocation, Link } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router"
 import { useState } from "react"
-
 // Importa componentes auxiliares para mensagens de sucesso e erro
 import SucessPopup from "../components/SuccessPopup"
 import Error from "../components/Error"
-
 // Importa funções utilitárias para validação e manipulação de dados
 import { isValidEmail, isValidPhone, readUsers, updateUsers } from "../Utils"
-
-// Importa componente para exibir erros de sistema
+// Importa componente para exibir erros de requisição
 import FullPageError from "../components/FullPageError"
 
-export function Register() {
+export default function Register() {
    // Hook de navegação para redirecionar o usuário
   const navigate = useNavigate()
-
   // Hook que fornece informações sobre a rota atual
   const location = useLocation()
-
   // Estado para gerenciar erro de validação dos campos
   const [validationError, setValidationError] = useState(null);
-
   // Estado para gerenciar erros de requisição (ex: falha ao acessar o servidor)
   const [requestError, setRequestError] = useState(null);
-
   // Estado que indica se o cadastro foi finalizado com sucesso
   const [hasFinished, setFinished] = useState(false)
 
@@ -82,6 +74,8 @@ export function Register() {
 
     //Atualiza o cadastro de usuários com o novo usuário:
     if (users === null) users = []
+    newUser.isAdmin = false
+    newUser.id = users.length
     await updateUsers([...users, newUser]).catch(async () => {
           const error = {
               title: "Erro interno do servidor.",

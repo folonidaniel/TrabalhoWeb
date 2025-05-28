@@ -9,7 +9,7 @@ import { delay, readCart, updateCart } from "../Utils"
 import FullPageError from "../components/FullPageError"
 
 // Define o componente funcional Cart
-export function Cart() {
+export default function Cart() {
     // Define estados locais para erro, carregamento e dados do carrinho
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);

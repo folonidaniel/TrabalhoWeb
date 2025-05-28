@@ -16,7 +16,7 @@ import { useNavigate } from "react-router"
 // Importação de utilitários personalizados
 import { CheckForMobile, delay } from "../Utils"
 
-export function Main() {
+export default function Main() {
   const navigate = useNavigate()// Hook para redirecionamento de páginas
   const [bannerIndex, setBannerIndex] = useState(0)// Índice do banner atual
   const [error, setError] = useState(null);// Estado de erro na requisição

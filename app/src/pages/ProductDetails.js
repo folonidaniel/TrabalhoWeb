@@ -1,19 +1,17 @@
 // Importação de hooks do React Router e React
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-
 // Importação de componentes e estilos
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/ProductDetails.module.css";
-
 // Importação de funções utilitárias e componentes auxiliares
 import { readLoggedUser, readCart, updateCart } from "../Utils"
 import Loading from "../components/Loading";
 import FullPageError from "../components/FullPageError";
 
 // Componente principal de detalhes do produto
-export function ProductDetails() {
+export default function ProductDetails() {
     const params = useParams();// Hook para acessar parâmetros da rota (id do produto)
 
     // Estados do componente

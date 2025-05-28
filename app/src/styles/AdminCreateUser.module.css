@@ -1,11 +1,8 @@
 /* NAVBAR */
-.navbar {
-  background: #01277d;
-  height: 48px;
+.outerContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
 }
 
 .logo {
@@ -75,7 +72,7 @@
 }
 
 .wrapper {
-  background: #f6f6f7;
+  background: white;
   min-height: 100vh;
   padding: 0;
   margin: 0;
@@ -165,9 +162,9 @@
   font-size: 1.08rem;
   padding: 5px 13px;
   border-radius: 9px;
-  border: 2px solid #10ecff;
+  border: 2px solid #00ffff;
   background: transparent;
-  color: #10ecff;
+  color: white;
   outline: none;
   transition: border-color 0.2s;
   margin-left: 8px;
@@ -177,13 +174,14 @@
 }
 .inputShort {
   width: 185px;
+  margin-left: 25px;
 }
 
 .checkbox {
   width: 17px;
   height: 17px;
-  accent-color: #10ecff;
-  margin-left: 8px;
+  accent-color: #00FFFF;
+  margin-left: 50px;
   vertical-align: middle;
 }
 
@@ -204,33 +202,13 @@
   cursor: pointer;
   margin-top: 18px;
   transition: background 0.19s, color 0.17s;
-  box-shadow: 0 3px 13px #10ecff44;
 }
 .submitBtn:hover {
-  background: #08b3b3;
-  color: #fff;
+  background: #00d6d6;
 }
 
 @media (max-width: 620px) {
-  .card {
-    padding: 22px 5vw 38px 5vw;
-    width: 95vw;
-  }
-  .label, .form {
-    font-size: 1.06rem;
-  }
-  .formRow {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .formRow:not(:first-child) .fieldLabel {
-    min-width: 66px;
-  }
-  .input, .inputShort {
-    width: 100%;
-    margin-bottom: 9px;
-  }
-  .buttonRow {
-    justify-content: center;
-  }
+    .card {
+        width: 80vw;
+    }
 }

@@ -5,9 +5,10 @@ import { useNavigate } from "react-router"
 import SuccessPopup from "../components/SuccessPopup"
 import { delay, readCart, readLoggedUser, updateCart, updateStock } from "../Utils"
 import Loading from "../components/Loading"
+import Footer from "../components/Footer"
 
 // Define o componente funcional Checkout
-export function Checkout() {
+export default function Checkout() {
     //Define diversos estados para gerenciar:
     const [cart, setCart] = useState(null)//o carrinho
     const [loggedUser, setLoggedUser] = useState(null)//usuário logado
@@ -299,6 +300,7 @@ export function Checkout() {
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </>
         )
     } else {

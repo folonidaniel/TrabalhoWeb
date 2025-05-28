@@ -1,9 +1,7 @@
 // Importa hooks do React
 import { useState, useEffect } from "react";
-
 // Importa hook de localização da rota
 import { useLocation } from "react-router";
-
 // Importa componentes de navegação e busca
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
@@ -13,10 +11,10 @@ import FullPageError from "../components/FullPageError"
 // Importa os estilos específicos deste componente
 import styles from "../styles/Search.module.css"
 
-export default function Search(){
+export default function Search() {
     // Hook para acessar informações passadas pela navegação 
     const location = useLocation();
-    
+
     const [error, setError] = useState(null);// Armazena informações de erro, se houver
     const [isLoaded, setIsLoaded] = useState(false); // Indica se os dados foram carregados
     const [results, setResults] = useState([])// Armazena os resultados da busca
@@ -29,7 +27,7 @@ export default function Search(){
             setInitialValues(products) // Salva todos os produtos no estado
             setResults(products)// Inicialmente, exibe todos os produtos
             setIsLoaded(true);// Marca como carregado
-            if(initialSearch !== null){
+            if (initialSearch !== null) {
                 search(initialSearch, products)// Reseta o valor após a busca inicial
                 setInitialSearch(null)
             }
@@ -44,10 +42,10 @@ export default function Search(){
         })
     }, [])// Executa apenas uma vez na montagem
 
-    function search(str, array){
+    function search(str, array) {
         const newResults = []
-        array.forEach( (item) => {
-            if(item.title.toLowerCase().match(str.toLowerCase()))// Busca insensível a maiúsculas/minúsculas
+        array.forEach((item) => {
+            if (item.title.toLowerCase().match(str.toLowerCase()))// Busca insensível a maiúsculas/minúsculas
                 newResults.push(item)
         })
         setResults(newResults)// Atualiza resultados com o que foi encontrado
@@ -55,45 +53,47 @@ export default function Search(){
     //Função para lidar com mudanças no campo de busca:
     const handleChange = (event) => search(event.target.value, initialValues);
 
-    if(!isLoaded){
+    if (!isLoaded) {
         return (
             <>
-                <Navbar/>
-                <Loading/>
-                <Footer/>
+                <Navbar />
+                <Loading />
+                <Footer />
             </>
         )
-    } else if(error !== null){
+    } else if (error !== null) {
         return (
-            <FullPageError title={error.title} message={error.message}/>
+            <FullPageError title={error.title} message={error.message} />
         )
     }
 
     return (
-        <main className={styles.main}>
-            <Navbar/>
-            {/* Renderiza a barra de busca */}
-            <SearchBar 
-                initialValue={location.state !== null ? location.state : ""} 
-                width="80vmin"
-                onChange={handleChange}/>
+        <>
+            <main className={styles.main}>
+                <Navbar />
+                {/* Renderiza a barra de busca */}
+                <SearchBar
+                    initialValue={location.state !== null ? location.state : ""}
+                    width="80vmin"
+                    onChange={handleChange} />
 
-            <div className={styles.resultsContainer}>
-                {/* Itera sobre os resultados e renderiza cada produto */}
-                {results.map( (item, i) => (
-                    <div key={i} className={styles.productContainer}>
-                        <a className={styles.imageContainer} href={"/product/" + item.id}><img className={styles.img} src={item.images[0]}/></a>
-                        <h3 className={styles.title}>{item.title}</h3>
-                    </div>
-                ))}
-            </div>
-            {/*Exibe mensagem se nenhum resultado for encontrado: */}
-            {results.length === 0 ? (
-                <h3>Nenhum resultado encontrado :</h3>
-            ) : (
-                <></>
-            )}
-            <Footer/>
-        </main>
+                <div className={styles.resultsContainer}>
+                    {/* Itera sobre os resultados e renderiza cada produto */}
+                    {results.map((item, i) => (
+                        <div key={i} className={styles.productContainer}>
+                            <a className={styles.imageContainer} href={"/product/" + item.id}><img className={styles.img} src={item.images[0]} /></a>
+                            <h3 className={styles.title}>{item.title}</h3>
+                        </div>
+                    ))}
+                </div>
+                {/*Exibe mensagem se nenhum resultado for encontrado: */}
+                {results.length === 0 ? (
+                    <h3>Nenhum resultado encontrado :</h3>
+                ) : (
+                    <></>
+                )}
+                <Footer />
+            </main>
+        </>
     )
 }

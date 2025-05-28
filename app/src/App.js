@@ -1,23 +1,23 @@
 // Importa componentes necessários do React Router para gerenciar as rotas da aplicação.
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router';
 
 // Importa as páginas que serão renderizadas em diferentes rotas
-import { Register } from "./pages/Register"
-import { Login } from "./pages/Login"
-import { ProductDetails } from "./pages/ProductDetails"
-import { Cart } from "./pages/Cart"
-import { AboutUs } from "./pages/AboutUs"
-import { Search } from "./pages/Search"
-import { MyAccount } from './pages/MyAccount';
-import { Checkout } from './pages/Checkout';
-import { Main } from "./pages/Main";
-import {AdminCreateUser} from "./pages/AdminCreateUser";
-import {AdminCreateProduct} from "./pages/AdminCreateProduct";
-import {AdminEditProduct} from "./pages/AdminEditProduct";
-import {AdminEditUser} from "./pages/AdminEditUser";
-import {AdminMain} from "./pages/AdminMain";
-import {AdminSearchProduct} from './pages/AdminSearchProduct';
-import {AdminSearchUsers} from './pages/AdminSearchUsers';
+import Register from "./pages/Register"
+import Login from "./pages/Login"
+import ProductDetails from "./pages/ProductDetails"
+import Cart from "./pages/Cart"
+import AboutUs from "./pages/AboutUs"
+import Search from "./pages/Search"
+import MyAccount from './pages/MyAccount';
+import Checkout from './pages/Checkout';
+import AdminCreateUser from "./pages/AdminCreateUser";
+import AdminCreateProduct from "./pages/AdminCreateProduct";
+import AdminEditProduct from "./pages/AdminEditProduct";
+import AdminEditUser from "./pages/AdminEditUser";
+import AdminMain from "./pages/AdminMain";
+import AdminSearchProduct from './pages/AdminSearchProduct';
+import AdminSearchUsers from './pages/AdminSearchUsers';
+import Main from "./pages/Main";
 
 // Função principal da aplicação React (chama as rotas)
 function App() {
@@ -36,10 +36,10 @@ function App() {
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/create-user" element={<AdminCreateUser/>}/>
         <Route path="/create-product" element={<AdminCreateProduct/>}/>
-        <Route path="/edit-product" element={<AdminEditProduct/>}/>
-        <Route path="/edit-user" element={<AdminEditUser/>}/>
+        <Route path="/edit-product/:id" element={<AdminEditProduct/>}/>
+        <Route path="/edit-user/:id" element={<AdminEditUser/>}/>
         <Route path="/main-admin" element={<AdminMain/>}/>
-        <Route path="/search-product-admin" element={<AdminSearchProduct/>}/>
+        <Route path="/search-products-admin" element={<AdminSearchProduct/>}/>
         <Route path="/search-users-admin" element={<AdminSearchUsers/>}/>
       </Routes>
     </BrowserRouter>

@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import styles from "../styles/AdminMain.module.css";
+import AdminNavbar from "../components/AdminNavbar";
 
+function handleSearch(){
+  
+}
 
-export function AdminMain() {
+export default function AdminMain() {
   return (
     <div className={styles.pageBg}>
       {/* NAVBAR */}
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>
-          <span className={styles.logoCircle}>
-            <span className={styles.logoPlusH}></span>
-            <span className={styles.logoPlusV}></span>
-            <span className={styles.logoDot}></span>
-          </span>
-        </div>
-        <div className={styles.menu}>
-          <button className={styles.menuItem}>Usuários <span className={styles.menuArrow}>▼</span></button>
-          <button className={styles.menuItem}>Produtos <span className={styles.menuArrow}>▼</span></button>
-        </div>
-      </nav>
+      <AdminNavbar/>
 
       {/* CENTERED GREETING */}
       <main className={styles.centered}>

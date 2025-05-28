@@ -2,120 +2,165 @@ import React, { useState } from "react";
 import styles from "../styles/AdminCreateUser.module.css";
 import { useNavigate, useLocation, Link } from "react-router";
 import SearchBar from "../components/SearchBar";
+import AdminNavbar from "../components/AdminNavbar";
+import { isValidEmail, isValidPhone, readUsers, updateUsers } from "../Utils"
+import Success from "../components/Success";
+import Error from "../components/Error";
 
-export function AdminCreateUser () {
-  const [form, setForm] = useState({
-    name: "",
-    admin: false,
-    endereco: "",
-    telefone: "",
-    email: "",
-  });
+export default function AdminCreateUser() {
+  const navigate = useNavigate() 
+  // Estados para mensagens de erro e carregamento
+  const [success, setSuccess] = useState(null);
+  const [requestError, setRequestError] = useState(null);
+  const [validationError, setValidationError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  function handleSearch(event) {
+    if (event.key !== "Enter" && event.type !== "click") return
+    navigate("/search-users-admin", { state: event.target.value })
+  }
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Demo only: Just alert the data
-    alert(JSON.stringify(form, null, 2));
+
+    // Pega todos os inputs do formulário
+    const inputs = Array.from(document.getElementsByTagName("input"))
+    const phoneElem = document.getElementsByTagName("input")[3]
+    const emailElem = document.getElementsByTagName("input")[4]
+
+    let hasInvalidInput = false
+    let errorMsg = ""
+
+    // Validação do email
+    if (!isValidEmail(emailElem.value)) {
+      hasInvalidInput = true
+      errorMsg += "Email inválido"
+    }
+
+    // Validação do telefone
+    if (!isValidPhone(phoneElem.value)) {
+      if (hasInvalidInput) errorMsg += " e "
+      errorMsg += "Telefone inválido"
+      hasInvalidInput = true
+    }
+
+    // Se houver input inválido, exibe erro e remove estilo após 2s
+    if (hasInvalidInput) {
+      setValidationError(errorMsg)
+      setTimeout(() => {
+        setValidationError(null)
+      }, 2000)
+    } else {
+      let newUser = {}
+      inputs.forEach((input) => {
+          if(input.type === "checkbox") newUser[input.name] = input.checked
+          else {
+            newUser[input.name] = input.value
+            input.value = ""
+          }
+      })
+      // Atualiza a lista de usuários
+      let users = await readUsers()
+      if(users === null) users = []
+      newUser.id = users.length
+      users.push(newUser)
+      await updateUsers(users).catch(async () => {
+        setIsLoaded(true)
+        const error = {
+          title: "Erro interno do servidor.",
+          message: "Por favor, tente novamente."
+        }
+        setRequestError(error)
+      })
+      setSuccess("Usuário cadastrado com sucesso!")
+      setTimeout(() => {
+        setSuccess(null)
+      }, 1500)
+    }
   };
 
-  return (<>
-  <div className={styles.wrapper}>
+  return (
+    <div className={styles.wrapper}>
       {/* NAVBAR */}
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>
-          <span className={styles.logoIcon} style={{ position: "relative" }}>
-            <span className={styles.logoDot}></span>
-            <span className={styles.logoDot2}></span>
-            <span className={styles.logoLine1} style={{ background: "#01277d" }}></span>
-            <span className={styles.logoLine2} style={{ background: "#01277d" }}></span>
-          </span>
-        </div>
-        <div className={styles.menu}>
-          <button className={styles.menuItem}>Usuários ▾</button>
-          <button className={styles.menuItem}>Produtos ▾</button>
-        </div>
-      </nav>
+      <AdminNavbar />
+      <div className={styles.outerContainer}>
+        <SearchBar placeholder="Buscar usuário..." initialValue="" width="352px" marginBottom="20px" onClick={handleSearch} onKeyDown={handleSearch} />
+        {success !== null ? (
+          <Success message={success} />
+        ) : (
+          <></>
+        )}
+        {validationError !== null ? (
+          <Error className="sus" message={validationError} />
+        ) : (
+          <></>
+        )}
 
-      <SearchBar initialValue="" width="352px" onClick={handleSearch} onKeyDown={handleSearch} />
-
-      {/* FORM CARD */}
-      <div className={styles.card}>
-        <div className={styles.label}>
-          Nome: 
-          <input
-            className={styles.input}
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            autoComplete="off"
-          />
+        {/* FORM CARD */}
+        <div className={styles.card}>
+          <div className={styles.label}>
+            Nome:
+            <input
+              required
+              className={styles.input}
+              type="text"
+              name="name"
+            />
+          </div>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formRow}>
+              <label className={styles.fieldLabel} htmlFor="endereco">Endereço:</label>
+              <input
+                required
+                className={styles.inputShort}
+                type="text"
+                name="address"
+              />
+            </div>
+            <div className={styles.formRow}>
+              <label className={styles.fieldLabel} htmlFor="telefone">Telefone:</label>
+              <input
+                required
+                className={styles.inputShort}
+                type="text"
+                name="phone"
+              />
+            </div>
+            <div className={styles.formRow}>
+              <label className={styles.fieldLabel} htmlFor="email">Email:</label>
+              <input
+                required
+                className={styles.inputShort}
+                type="email"
+                name="email"
+              />
+            </div>
+            <div className={styles.formRow}>
+              <label className={styles.fieldLabel} htmlFor="password">Password:</label>
+              <input
+                required
+                className={styles.inputShort}
+                type="password"
+                name="password"
+              />
+            </div>
+            <div className={styles.formRow}>
+              <label className={styles.fieldLabel} htmlFor="admin" style={{ minWidth: 58 }}>Admin:</label>
+              <input
+                type="checkbox"
+                className={styles.checkbox}
+              />
+            </div>
+            <div className={styles.buttonRow}>
+              <button className={styles.submitBtn} type="submit">
+                Cadastrar
+              </button>
+            </div>
+          </form>
         </div>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.formRow}>
-            <label className={styles.fieldLabel} htmlFor="admin" style={{ minWidth: 58 }}>Admin:</label>
-            <input
-              type="checkbox"
-              id="admin"
-              name="admin"
-              checked={form.admin}
-              onChange={handleChange}
-              className={styles.checkbox}
-            />
-          </div>
-          <div className={styles.formRow}>
-            <label className={styles.fieldLabel} htmlFor="endereco">Endereço:</label>
-            <input
-              className={styles.inputShort}
-              type="text"
-              name="endereco"
-              id="endereco"
-              value={form.endereco}
-              onChange={handleChange}
-              autoComplete="off"
-            />
-          </div>
-          <div className={styles.formRow}>
-            <label className={styles.fieldLabel} htmlFor="telefone">Telefone:</label>
-            <input
-              className={styles.inputShort}
-              type="text"
-              name="telefone"
-              id="telefone"
-              value={form.telefone}
-              onChange={handleChange}
-              autoComplete="off"
-            />
-          </div>
-          <div className={styles.formRow}>
-            <label className={styles.fieldLabel} htmlFor="email">Email:</label>
-            <input
-              className={styles.inputShort}
-              type="email"
-              name="email"
-              id="email"
-              value={form.email}
-              onChange={handleChange}
-              autoComplete="off"
-            />
-          </div>
-          <div className={styles.buttonRow}>
-            <button className={styles.submitBtn} type="submit">
-              Cadastrar
-            </button>
-          </div>
-        </form>
       </div>
     </div>
-  </>
   );
-    
+
 };

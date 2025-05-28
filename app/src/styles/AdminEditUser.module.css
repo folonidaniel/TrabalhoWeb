@@ -1,9 +1,24 @@
 .pageBg {
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: #fff;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+}
+
+.successContainer {
+  margin-top: 10px;
+}
+
+.exclusionSuccessContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* NAVBAR */
@@ -114,6 +129,7 @@
   align-items: center;
   padding: 32px 28px 24px 28px;
   box-shadow: 0 4px 32px rgba(2, 30, 80, 0.12);
+  margin-top: 20px;
 }
 .cardTitle {
   font-size: 2rem;
@@ -124,7 +140,7 @@
   width: 100%;
 }
 .cardInfo {
-  color: #e6f1ff;
+  color: white;
   font-size: 1.04rem;
   width: 100%;
   line-height: 1.7;
@@ -133,19 +149,22 @@
   word-break: break-word;
 }
 .infoLabel {
-  color: #5ac1ff;
+  color: white;
   font-weight: 500;
 }
 .adminSquare {
   display: inline-block;
   width: 11px;
   height: 11px;
-  background: #09dafb;
   border-radius: 2px;
   margin: 0 7px 0 2px;
   vertical-align: middle;
   position: relative;
   top: 2px;
+}
+
+.checkbox{
+  accent-color: #00FFFF;
 }
 
 .buttonRow {
@@ -157,7 +176,7 @@
 }
 .excluirBtn {
   font-size: 1.13rem;
-  background: #fd2224;
+  background: red;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -172,7 +191,7 @@
 }
 .salvarBtn {
   font-size: 1.13rem;
-  background: #09dafb;
+  background: #00FFFF;
   color: #003189;
   border: none;
   border-radius: 8px;
@@ -190,7 +209,7 @@
 /* Responsive */
 @media (max-width: 600px) {
   .card {
-    width: 98vw;
+    width: 90vw;
     min-width: 0;
     padding: 15px 2vw 19px 2vw;
   }
